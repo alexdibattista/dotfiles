@@ -1,0 +1,7 @@
+[user]
+	email = alex.dibattista@gmail.com
+	name = Alexander
+[core]
+	excludesfile = /Users/alexanderdibattista/.gitignore
+[merge]
+	tool = opendiff
