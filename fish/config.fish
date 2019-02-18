@@ -41,7 +41,10 @@ function t        ; command tree -C $argv ; end
 function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end
-  # Git
+
+eval (python -m virtualfish auto_activation global_requirements)
+
+# Git
 function ga
   command git add
 end

@@ -1,5 +1,5 @@
-let g:python_host_prog = '/Users/alexanderdibattista/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/Users/alexanderdibattista/.pyenv/versions/neovim3/bin/python'
+let g:python_host_prog = '/Users/alex/.virtualenvs/neovim/bin/python'
+let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
 "
 " Syntax highlighting {{{
 set t_Co=256
@@ -86,7 +86,7 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ 'javascript.jsx',
                 \ 'vue']
 let g:deoplete#max_list = 200
-let g:deoplete#sources#rust#racer_binary='/Users/alexanderdibattista/.cargo/bin/racer'
+" let g:deoplete#sources#rust#racer_binary='/Users/alex/.cargo/bin/racer'
 
 
 " remove whitespace on save
@@ -140,13 +140,13 @@ let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 
 " TODO: create a switch for python 2
-let g:ale_python_pycodestyle_executable = "/Users/alexanderdibattista/.pyenv/versions/neovim3/bin/pycodestyle"
-let g:ale_python_black_executable = "/Users/alexanderdibattista/.pyenv/versions/neovim3/bin/black"
+let g:ale_python_pycodestyle_executable = "/Users/alex/.virtualenvs/neovim3/pycodestyle"
+let g:ale_python_black_executable = "/Users/alex/.virtualenvs/neovim3/bin/black"
 
 " Black Python linter
 let g:black_fast = 1
 let g:black_linelength = 79
-let g:black_virtualenv = "/Users/alexanderdibattista/.pyenv/versions/neovim3/bin/black"
+let g:black_virtualenv = "/Users/alex/.virtualenvs/neovim3/bin/black"
 autocmd BufWritePre *.py execute ':Black'
 
 " Airline.vim {{{
@@ -201,7 +201,7 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 
 " fzf {{{
 augroup fzf_config
-  set rtp+=/usr/local/bin/fzf
+  set rtp+=/usr/local/opt/fzf
 
   let g:fzf_layout = { 'up': '~40%' }
   let g:fzf_history_dir = '~/.config/nvim/fzf-history'
@@ -498,7 +498,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
 
   " Python
-  Plug 'lambdalisue/vim-pyenv'
+  " Plug 'lambdalisue/vim-pyenv'
   Plug 'lepture/vim-jinja'
   Plug 'plytophogy/vim-virtualenv'
   Plug 'vim-python/python-syntax'
