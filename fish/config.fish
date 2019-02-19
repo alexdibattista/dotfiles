@@ -9,7 +9,7 @@ set -x GREP_COLOR "1;37;45"
 set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 set -x TDD 0
-
+set PATH $HOME/.cargo/bin $PATH
 # Paths
 test -d /usr/local/share/npm/bin             ; and set PATH /usr/local/share/npm/bin $PATH
 test -d /usr/local/sbin                      ; and set PATH /usr/local/sbin $PATH
