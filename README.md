@@ -4,30 +4,32 @@
 
 ### curl
 - brew
+- nvm
 
 ### brew
 
-- node
-- neovim
-- tmux
-- git
-- postgres
 - elixir
-- python3
-- fzf
 - fd
+- fish
+- fzf
+- git
+- neovim
+- node
+- postgres
+- python3
 - reattach-to-user-namespace
 - the_silver_searcher
+- tmux
 
 ### cask
+
+- firefox
 - google-chrome
-- firefox
-- spectacle
-- firefox
 - keepingyouawake
-- slack
-- sktech
 - private-internet-access
+- sktech
+- slack
+- spectacle
 - visual-studio-code
 
 
