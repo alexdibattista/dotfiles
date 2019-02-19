@@ -14,6 +14,7 @@ brew 'python3'
 brew 'fzf'
 brew 'fd'
 brew 'reattach-to-user-namespace'
+brew 'the_silver_searcher'
 
 cask 'google-chrome'
 cask 'firefox'

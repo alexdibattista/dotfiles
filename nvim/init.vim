@@ -27,7 +27,7 @@ set undodir=~/.config/nvim/undo
 
 let mapleader="," " Map leader
 
-set clipboard=unnamedplus
+set clipboard=unnamed
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
