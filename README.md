@@ -5,6 +5,7 @@
 ### curl
 - brew
 - nvm
+- VimPlug
 
 ### brew
 
@@ -20,6 +21,7 @@
 - reattach-to-user-namespace
 - the_silver_searcher
 - tmux
+- tree
 
 ### cask
 
@@ -31,7 +33,7 @@
 - slack
 - spectacle
 - visual-studio-code
-
+- iTerm2
 
 ### TODO:
 - [ ] Add linking to install.sh
