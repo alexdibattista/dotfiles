@@ -36,6 +36,6 @@
 - iTerm2
 
 ### TODO:
-- [ ] Add linking to install.sh
+- [ ] Add linking to install.sh - should I link folders or files? (don't forget nvim/autoload))
 - [ ] Clean up NVIM config
 - [ ] Figure out how to link ssh keys without committing them to git.
