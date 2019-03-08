@@ -112,7 +112,7 @@ set fcs=fold:-
 nnoremap <silent> <leader>c :set nolist!<CR>
 " }}}
 " ale
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv', '.pyenv']
 let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
@@ -284,22 +284,8 @@ augroup END
 
 " Silver Searcher {{{
 augroup ag_config
-  autocmd!
-
-  if executable("ag")
-    " Note we extract the column as well as the file and line number
-    set grepprg=ag\ --nogroup\ --nocolor\ --column
-    set grepformat=%f:%l:%c%m
-
-    " Have the silver searcher ignore all the same things as wilgignore
-    let b:ag_command = 'ag %s -i --nocolor --nogroup'
-
-    for i in split(&wildignore, ",")
-      let i = substitute(i, '\*/\(.*\)/\*', '\1', 'g')
-      let b:ag_command = b:ag_command . ' --ignore "' . substitute(i, '\*/\(.*\)/\*', '\1', 'g') . '"'
-    endfor
-
-    let b:ag_command = b:ag_command . ' --hidden -g ""'
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
   endif
 augroup END
 " }}}
@@ -418,19 +404,20 @@ augroup filetype_json
   au BufRead,BufNewFile *.json set ft=json syntax=javascript
 augroup END
 " }}}
+
 " Set clipboard provider to pbcopy for MacOS
-let g:clipboard = {
-      \ 'name': 'pbcopy',
-      \ 'copy': {
-      \    '+': 'pbcopy',
-      \    '*': 'pbcopy',
-      \  },
-      \ 'paste': {
-      \    '+': 'pbpaste',
-      \    '*': 'pbpaste',
-      \ },
-      \ 'cache_enabled': 0,
-\ }
+" let g:clipboard = {
+      " \ 'name': 'pbcopy',
+      " \ 'copy': {
+      " \    '+': 'pbcopy',
+      " \    '*': 'pbcopy',
+      " \  },
+      " \ 'paste': {
+      " \    '+': 'pbpaste',
+      " \    '*': 'pbpaste',
+      " \ },
+      " \ 'cache_enabled': 0,
+" \ }
 call plug#begin('~/.config/nvim/plugged')
   " Utilities
   Plug 'junegunn/rainbow_parentheses.vim'
@@ -476,7 +463,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'BjRo/vim-extest'
   Plug 'frost/vim-eh-docs'
   Plug 'slashmili/alchemist.vim'
-
+  Plug 'mileszs/ack.vim'
   Plug 'jadercorrea/elixir_generator.vim'
   Plug 'elixir-editors/vim-elixir'
   Plug 'mhinz/vim-mix-format'
@@ -485,7 +472,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'leafgarland/typescript-vim'
   Plug 'mxw/vim-jsx'
   Plug 'pangloss/vim-javascript'
-  Plug 'rking/ag.vim'
   Plug 'othree/yajs'
   Plug 'flowtype/vim-flow'
   Plug 'jparise/vim-graphql'
