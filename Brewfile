@@ -19,6 +19,7 @@ brew 'the_silver_searcher'
 brew 'tmux'
 brew 'tree'
 
+cask 'anki'
 cask 'firefox'
 cask 'google-chrome'
 cask 'iterm2'
