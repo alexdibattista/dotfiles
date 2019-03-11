@@ -35,6 +35,11 @@
 - visual-studio-code
 - iTerm2
 
+### Notes:
+pyenv zlib issue:
+```sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /```
+
+
 ### TODO:
 - [ ] Add linking to install.sh - should I link folders or files? (don't forget nvim/autoload))
 - [ ] Clean up NVIM config

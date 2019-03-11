@@ -150,5 +150,10 @@ if test -f $fisher_home/config.fish
   source $fisher_home/config.fish
 end
 
+#pyenv
+if command -v pyenv 1>/dev/null 2>&1;
+  eval (pyenv init - | source)
+end
+
 # iterm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
