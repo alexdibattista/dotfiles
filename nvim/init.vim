@@ -118,7 +118,7 @@ let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['tsserver', 'eslint'],
-      \  'python': ['pycodestyle']}
+      \  'python': ['pycodestyle', 'flake8']}
 let g:ale_fixers = {}
 let g:ale_fixers = {
       \  'javascript': ['prettier', 'eslint'],
@@ -137,14 +137,15 @@ let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 
 " TODO: create a switch for python 2
-let g:ale_python_pycodestyle_executable = "/Users/alex/.virtualenvs/neovim3/pycodestyle"
-let g:ale_python_black_executable = "/Users/alex/.virtualenvs/neovim3/bin/black"
+let g:ale_python_pycodestyle_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/pycodestyle"
+let g:ale_python_black_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/black"
+"
 
 " Black Python linter
-let g:black_fast = 1
-let g:black_linelength = 79
-let g:black_virtualenv = "/Users/alex/.virtualenvs/neovim3/bin/black"
-autocmd BufWritePre *.py execute ':Black'
+" let g:black_fast = 1
+" let g:black_linelength = 79
+" let g:black_virtualenv = "/Users/alex/.virtualenvs/neovim3/bin/black"
+" autocmd BufWritePre *.py execute ':Black'
 
 " Airline.vim {{{
 augroup airline_config
@@ -405,19 +406,6 @@ augroup filetype_json
 augroup END
 " }}}
 
-" Set clipboard provider to pbcopy for MacOS
-" let g:clipboard = {
-      " \ 'name': 'pbcopy',
-      " \ 'copy': {
-      " \    '+': 'pbcopy',
-      " \    '*': 'pbcopy',
-      " \  },
-      " \ 'paste': {
-      " \    '+': 'pbpaste',
-      " \    '*': 'pbpaste',
-      " \ },
-      " \ 'cache_enabled': 0,
-" \ }
 call plug#begin('~/.config/nvim/plugged')
   " Utilities
   Plug 'junegunn/rainbow_parentheses.vim'
@@ -446,6 +434,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'roxma/nvim-yarp'
   Plug 'sheerun/vim-polyglot'
   Plug 'terryma/vim-multiple-cursors'
+  Plug 'mileszs/ack.vim'
 
   " Themes
   Plug 'vim-airline/vim-airline'
@@ -458,12 +447,8 @@ call plug#begin('~/.config/nvim/plugged')
   " Elixir Support
   Plug 'elixir-lang/vim-elixir'
   Plug 'avdgaag/vim-phoenix'
-  Plug 'mmorearty/elixir-ctags'
-  Plug 'mattreduce/vim-mix'
-  Plug 'BjRo/vim-extest'
   Plug 'frost/vim-eh-docs'
   Plug 'slashmili/alchemist.vim'
-  Plug 'mileszs/ack.vim'
   Plug 'jadercorrea/elixir_generator.vim'
   Plug 'elixir-editors/vim-elixir'
   Plug 'mhinz/vim-mix-format'
@@ -473,25 +458,15 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mxw/vim-jsx'
   Plug 'pangloss/vim-javascript'
   Plug 'othree/yajs'
-  Plug 'flowtype/vim-flow'
   Plug 'jparise/vim-graphql'
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
   Plug 'zchee/deoplete-jedi'
-  Plug 'posva/vim-vue'
   Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
 
   " Python
-  " Plug 'lambdalisue/vim-pyenv'
   Plug 'lepture/vim-jinja'
   Plug 'plytophogy/vim-virtualenv'
   Plug 'vim-python/python-syntax'
-  Plug 'ambv/black'
-
-  " GO
-  Plug 'zchee/deoplete-go'
-
-  " RUST
-  Plug 'sebastianmarkow/deoplete-rust'
 
   " CSS
   Plug 'JulesWang/css.vim'
@@ -514,12 +489,6 @@ call plug#begin('~/.config/nvim/plugged')
   " Fish
   Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
   Plug 'dag/vim-fish'
-
-  " HTML
-  Plug 'mattn/emmet-vim'
-
-  " Solidity
-  Plug 'tomlion/vim-solidity'
 
   " Markdown
   Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
