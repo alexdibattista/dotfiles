@@ -1,6 +1,6 @@
 let g:python_host_prog = '/Users/alex/.virtualenvs/neovim/bin/python'
 let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
-"
+
 " Syntax highlighting {{{
 set t_Co=256
 set background=dark
@@ -52,7 +52,6 @@ set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
-set ofu=syntaxcomplete#Complete " Set omni-completion method
 set report=0 " Show all changes
 set ruler
 set showtabline=2 " Always show tab bar
@@ -77,7 +76,8 @@ let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"} " autoclose escap
 
 let g:python_highlight_all = 1
 
-let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/ternjs'
+let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
+
 " Add extra filetypes
 let g:deoplete#sources#ternjs#filetypes = [
                 \ 'ts',
@@ -85,17 +85,18 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ 'jsx',
                 \ 'javascript.jsx',
                 \ 'vue']
-let g:deoplete#max_list = 200
+let g:deoplete#max_list = 50
 " let g:deoplete#sources#rust#racer_binary='/Users/alex/.cargo/bin/racer'
 
 
 " remove whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
 
-" let g:UltiSnipsExpandTrigger="<C-j>"
 " Trigger configuration.
-let g:UltiSnipsExpandTrigger='<leader>e'
+" let g:UltiSnipsExpandTrigger='<leader>e'
 let g:UltiSnipsJumpForwardTrigger='<leader>r'
+let g:UltiSnipsExpandTrigger="<C-j>"
+
 let g:UltiSnipsJumpBackwardTrigger='<leader>w'
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -136,16 +137,8 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 
-" TODO: create a switch for python 2
 let g:ale_python_pycodestyle_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/pycodestyle"
 let g:ale_python_black_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/black"
-"
-
-" Black Python linter
-" let g:black_fast = 1
-" let g:black_linelength = 79
-" let g:black_virtualenv = "/Users/alex/.virtualenvs/neovim3/bin/black"
-" autocmd BufWritePre *.py execute ':Black'
 
 " Airline.vim {{{
 augroup airline_config
@@ -291,57 +284,6 @@ augroup ag_config
 augroup END
 " }}}
 
-" fzf {{{
-augroup fzf_config
-  set rtp+=/usr/local/opt/fzf
-
-  let g:fzf_layout = { 'up': '~40%' }
-  let g:fzf_history_dir = '~/.config/nvim/fzf-history'
-  let g:fzf_buffers_jump = 1 " Jump to existing buffer if available
-
-  nnoremap <C-p> :Files<CR>
-  nnoremap <C-g> :GFiles?<CR>
-  nnoremap <C-b> :Buffers<CR>
-  nnoremap <C-t> :Tags<CR>
-  nnoremap <C-m> :Marks<CR>
-  nnoremap <leader>l :Lines<CR>
-
-  " Mapping selecting mappings
-  nmap <leader><tab> <plug>(fzf-maps-n)
-  xmap <leader><tab> <plug>(fzf-maps-x)
-  omap <leader><tab> <plug>(fzf-maps-o)
-
-  " Insert mode completion
-  imap <c-x><c-k> <plug>(fzf-complete-word)
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  imap <c-x><c-l> <plug>(fzf-complete-line)
-augroup END
-" }}}
-
-" vim-markdown-composer {{{
-let g:markdown_composer_syntax_theme = 'Sunburst'
-" }}}
-
-" Elixir Tagbar Configuration
-" let g:tagbar_type_elixir = {
-    " \ 'ctagstype' : 'elixir',
-    " \ 'kinds' : [
-        " \ 'f:functions',
-        " \ 'functions:functions',
-        " \ 'c:callbacks',
-        " \ 'd:delegates',
-        " \ 'e:exceptions',
-        " \ 'i:implementations',
-        " \ 'a:macros',
-        " \ 'o:operators',
-        " \ 'm:modules',
-        " \ 'p:protocols',
-        " \ 'r:records',
-        " \ 't:tests'
-    " \ ]
-    " \ }
-
 " jsx-pretty.vim {{{
 augroup jsx_pretty_config
   autocmd!
@@ -359,16 +301,6 @@ augroup easy_align_config
 augroup END
 " }}}
 
-" vim-markdown[{{{
-let g:vim_markdown_folding_disabled = 1
-
-augroup lexical
-  autocmd!
-  autocmd FileType markdown,mkd call lexical#init()
-  autocmd FileType textile call lexical#init()
-  autocmd FileType text call lexical#init({ 'spell': 0 })
-augroup END
-
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
     if has('nvim')
@@ -378,9 +310,6 @@ function! BuildComposer(info)
     endif
   endif
 endfunction
-
-let g:lexical#spelllang = ['en_us','en_ca',]
-"}}}
 
 " vim-repeat.vim {{{
 augroup repeat_config
@@ -420,7 +349,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-endwise'
   Plug 'rstacruz/vim-closer'
   Plug 'godlygeek/tabular'
-  Plug 'Townk/vim-autoclose'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
   Plug 'autozimu/LanguageClient-neovim', {
@@ -433,7 +361,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'w0rp/ale'
   Plug 'roxma/nvim-yarp'
   Plug 'sheerun/vim-polyglot'
-  Plug 'terryma/vim-multiple-cursors'
   Plug 'mileszs/ack.vim'
 
   " Themes
@@ -450,7 +377,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'frost/vim-eh-docs'
   Plug 'slashmili/alchemist.vim'
   Plug 'jadercorrea/elixir_generator.vim'
-  Plug 'elixir-editors/vim-elixir'
   Plug 'mhinz/vim-mix-format'
 
   " JavaScript
@@ -483,19 +409,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'jreybert/vimagit'
 
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-
   " Fish
   Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
   Plug 'dag/vim-fish'
-
-  " Markdown
-  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-  Plug 'plasticboy/vim-markdown'
-  Plug 'rhysd/vim-grammarous'
-  Plug 'reedes/vim-colors-pencil'
-  Plug 'reedes/vim-lexical'
 
   " TMUX
   Plug 'prabirshrestha/async.vim'
@@ -503,6 +419,6 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
 
