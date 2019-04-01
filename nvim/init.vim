@@ -6,16 +6,8 @@ set t_Co=256
 set background=dark
 colorscheme onedark
 " }}}
-set encoding=UTF-8
 
 syntax on
-" if exists('+termguicolors')
-  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  " set termguicolors
-" endif
-
-" autocmd FileType python colorscheme railcasts
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
@@ -42,21 +34,27 @@ set formatoptions+=n " Recognize numbered lists
 set formatoptions+=2 " Use indent from 2nd line of a paragraph
 set formatoptions+=l " Don't break lines that are already long
 set formatoptions+=1 " Break before 1-letter words
+set gdefault " By default add g flag to search/replace. Add g to toggle
 set hidden " when a buffer is brought to foreground, remember undo history and marks
 set ignorecase " Ignore case of searches
 set list!
+set magic " Enable extended regexes
 set mouse=a " Enable the mouse
 set noerrorbells " Disable error bells
-" set nofoldenable
 set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
+set ofu=syntaxcomplete#Complete " Set omni-completion method
 set report=0 " Show all changes
 set ruler
-set showtabline=2 " Always show tab bar
-set softtabstop=2 " Tab key results in 2 spaces
+set scrolloff=3 " Start scrolling three lines before horizontal border of window
 set shiftwidth=2 " The # of spaces for indenting
+set shortmess=atI " Don't show the intro message when starting vim
+set showtabline=2 " Always show tab bar
+set sidescrolloff=3 " Start scrolling three columns before vertical border of window
+set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters
+set softtabstop=2 " Tab key results in 2 spaces
 set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
@@ -71,14 +69,11 @@ set wildignore+=.DS_Storeset wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.
 set wildignore+=*/bower_components/*,*/node_modules/*
 set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
 set winminheight=0 " Allow splits to be reduced to a single line
+set wrapscan " Searches wrap around end of file
 
 let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"} " autoclose escape key
-
 let g:python_highlight_all = 1
-
 let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
-
-" Add extra filetypes
 let g:deoplete#sources#ternjs#filetypes = [
                 \ 'ts',
                 \ 'tsx',
@@ -86,17 +81,13 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ 'javascript.jsx',
                 \ 'vue']
 let g:deoplete#max_list = 50
-" let g:deoplete#sources#rust#racer_binary='/Users/alex/.cargo/bin/racer'
-
 
 " remove whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
 
 " Trigger configuration.
-" let g:UltiSnipsExpandTrigger='<leader>e'
 let g:UltiSnipsJumpForwardTrigger='<leader>r'
 let g:UltiSnipsExpandTrigger="<C-j>"
-
 let g:UltiSnipsJumpBackwardTrigger='<leader>w'
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -104,7 +95,6 @@ map <C-\> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-
 let g:indent_guides_enable_on_vim_startup = 1
 
 " Toggle show tabs and trailing spaces (,c) {{{
@@ -112,6 +102,7 @@ set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
 set fcs=fold:-
 nnoremap <silent> <leader>c :set nolist!<CR>
 " }}}
+
 " ale
 let g:ale_completion_enabled = 0
 let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv', '.pyenv']
@@ -160,10 +151,6 @@ augroup airline_config
   let g:airline#extensions#tabline#fnamemod = ':t'
   let g:airline#extensions#tabline#formatter = 'jsformatter'
 augroup END
-" }}}
-
-" Sudo write (,W) {{{
-  noremap <leader>W :w !sudo tee %<CR>
 " }}}
 
 " Insert newline {{{
@@ -218,13 +205,6 @@ augroup fzf_config
 augroup END
 " }}}
 
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
-function! ExecuteMacroOverVisualRange()
-  echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-
 nmap <F8> :TagbarToggle<CR>
 
 " NERD Commenter {{{
@@ -254,10 +234,6 @@ augroup buffer_control
     execute "nnoremap " . c . "gb :" . c . "b\<CR>"
     let c += 1
   endwhile
-  " }}}
-
-  " Close Quickfix window (,qq) {{{
-  map <leader>qq :cclose<CR>
   " }}}
 
   " Rename buffer (:Rename) {{{
@@ -300,16 +276,6 @@ augroup easy_align_config
   nmap <Leader>a <Plug>(EasyAlign)
 augroup END
 " }}}
-
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    if has('nvim')
-      !cargo build --release
-    else
-      !cargo build --release --no-default-features --features json-rpc
-    endif
-  endif
-endfunction
 
 " vim-repeat.vim {{{
 augroup repeat_config
