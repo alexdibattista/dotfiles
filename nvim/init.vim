@@ -380,11 +380,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'dag/vim-fish'
 
   " TMUX
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/asyncomplete.vim'
+  " Plug 'prabirshrestha/async.vim'
+  " Plug 'prabirshrestha/asyncomplete.vim'
 call plug#end()
 
 
-let g:deoplete#enable_at_startup = 0
+let g:deoplete#enable_at_startup = 1
 call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
 
