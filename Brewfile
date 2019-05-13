@@ -20,6 +20,7 @@ brew 'reattach-to-user-namespace'
 brew 'the_silver_searcher'
 brew 'tmux'
 brew 'tree'
+brew 'zlib'
 
 cask 'anki'
 cask 'firefox'

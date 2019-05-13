@@ -10,7 +10,7 @@ colorscheme onedark
 syntax on
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
+"
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
 set directory=~/.config/nvim/swaps
@@ -19,6 +19,8 @@ set undodir=~/.config/nvim/undo
 
 let mapleader="," " Map leader
 
+set cc=120
+autocmd BufNewFile,BufRead *.py set cc=80
 set clipboard=unnamed
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
@@ -70,26 +72,30 @@ set wildignore+=*/bower_components/*,*/node_modules/*
 set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
 set winminheight=0 " Allow splits to be reduced to a single line
 set wrapscan " Searches wrap around end of file
+set signcolumn=yes
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+autocmd FileType python set autoindent
+let python_highlight_all = 1
+" Enable folding with the spacebar
+nnoremap <space> za
 
 let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"} " autoclose escape key
-let g:python_highlight_all = 1
-let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
-let g:deoplete#sources#ternjs#filetypes = [
-                \ 'ts',
-                \ 'tsx',
-                \ 'jsx',
-                \ 'javascript.jsx',
-                \ 'vue']
-let g:deoplete#max_list = 50
+
+" PEP 8 Standards
+" au BufNewFile,BufRead *.py
+    " \ set tabstop=4
+    " \ set softtabstop=4
+    " \ set shiftwidth=4
+    " \ set textwidth=79
+    " \ set expandtab
+    " \ set autoindent
+    " \ set fileformat=unix
 
 " remove whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
-
-" Trigger configuration.
-let g:UltiSnipsJumpForwardTrigger='<leader>r'
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger='<leader>w'
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 map <C-\> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -110,14 +116,16 @@ let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['tsserver', 'eslint'],
-      \  'python': ['pycodestyle', 'flake8']}
+      \  'python': ['pycodestyle', 'pylint'],
+      \  'markdown': ['remark']}
 let g:ale_fixers = {}
 let g:ale_fixers = {
       \  'javascript': ['prettier', 'eslint'],
       \  'typescript': ['prettier', 'eslint'],
       \  'json': ['prettier'],
       \  'css': ['stylelint', 'prettier'],
-      \  'python': ['black']}
+      \  'python': ['autopep8'],
+      \  'markdown': ['prettier']}
 
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
@@ -127,9 +135,12 @@ let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
-
+let g:ale_markdown_remark_lint_use_global = 1
 let g:ale_python_pycodestyle_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/pycodestyle"
 let g:ale_python_black_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/black"
+
+let g:SimpylFold_docstring_preview=1
+
 
 " Airline.vim {{{
 augroup airline_config
@@ -186,7 +197,7 @@ augroup fzf_config
   let g:fzf_buffers_jump = 1 " Jump to existing buffer if available
 
   nnoremap <C-p> :Files<CR>
-  nnoremap <C-g> :GFiles<CR>
+  nnoremap <C-g> :GFiles?<CR>
   nnoremap <C-b> :Buffers<CR>
   nnoremap <C-t> :Tags<CR>
   nnoremap <C-m> :Marks<CR>
@@ -317,6 +328,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'godlygeek/tabular'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
+  Plug 'Shougo/neosnippet.vim'
+  Plug 'Shougo/neosnippet-snippets'
   Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -328,6 +341,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'roxma/nvim-yarp'
   Plug 'sheerun/vim-polyglot'
   Plug 'mileszs/ack.vim'
+  Plug 'honza/vim-snippets'
+  Plug 'dracula/vim', { 'as': 'dracula' }
 
   " Themes
   Plug 'vim-airline/vim-airline'
@@ -346,19 +361,25 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mhinz/vim-mix-format'
 
   " JavaScript
-  Plug 'leafgarland/typescript-vim'
-  Plug 'mxw/vim-jsx'
-  Plug 'pangloss/vim-javascript'
-  Plug 'othree/yajs'
-  Plug 'jparise/vim-graphql'
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  Plug 'zchee/deoplete-jedi'
+  Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+  " Plug 'mxw/vim-jsx'
   Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
+  " Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+  " Plug 'carlitux/deoplete-ternjs'
+  " Plug 'leafgarland/typescript-vim'
+  " Plug 'pangloss/vim-javascript'
+  " Plug 'othree/yajs'
+  " Plug 'jparise/vim-graphql'
+  " Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  " Plug 'zchee/deoplete-jedi'
 
   " Python
+  Plug 'Vimjas/vim-python-pep8-indent'
   Plug 'lepture/vim-jinja'
   Plug 'plytophogy/vim-virtualenv'
   Plug 'vim-python/python-syntax'
+  Plug 'tmhedberg/SimpylFold'
 
   " CSS
   Plug 'JulesWang/css.vim'
@@ -386,5 +407,39 @@ call plug#end()
 
 
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_menu_width = 0
+let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+
+let g:tern_request_timeout = 1
+let g:tern_request_timeout = 6000
+let g:tern#command = ['tern']
+let g:tern#arguments = [' — persistent']
+
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" call deoplete#custom#source('matchers', ['matcher_fuzzy'])
 
