@@ -1,6 +1,13 @@
 let g:python_host_prog = '/Users/alex/.virtualenvs/neovim/bin/python'
 let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
 
+let g:LanguageClient_serverCommands = {
+    \'python': ['/Users/alex/.virtualenvs/neovim3/bin/pyls'],}
+" setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " Syntax highlighting {{{
 set t_Co=256
 set background=dark
@@ -116,7 +123,7 @@ let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['tsserver', 'eslint'],
-      \  'python': ['pycodestyle', 'pylint'],
+      \  'python': ['pyls'],
       \  'markdown': ['remark']}
 let g:ale_fixers = {}
 let g:ale_fixers = {
@@ -136,9 +143,9 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_markdown_remark_lint_use_global = 1
-let g:ale_python_pycodestyle_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/pycodestyle"
-let g:ale_python_black_executable = "~/.pyenv/versions/3.7.2/lib/python3.7/site-packages/black"
-
+let g:ale_python_pycodestyle_executable = "~/.virtualenvs/neovim3/bin/pycodestyle"
+let g:ale_python_black_executable = "~/.virtualenvs/neovim3/bin/black"
+let g:ale_python_pyls_executable  = "/Users/alex/.virtualenvs/neovim3/bin/pyls"
 let g:SimpylFold_docstring_preview=1
 
 

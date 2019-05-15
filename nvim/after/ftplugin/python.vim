@@ -56,3 +56,4 @@ if g:pymode_rope && g:pymode_rope_completion
     end
 
 end
+

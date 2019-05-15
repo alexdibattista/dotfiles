@@ -1,6 +1,7 @@
 #!/bin/bash
 
 xcode-select --install
+sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
