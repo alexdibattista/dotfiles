@@ -3,7 +3,7 @@ let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
 
 let g:LanguageClient_serverCommands = {
     \'python': ['/Users/alex/.virtualenvs/neovim3/bin/pyls'],}
-" setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+let g:LanguageClient_useVirtualText = 0
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
@@ -84,22 +84,13 @@ set signcolumn=yes
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
+
 autocmd FileType python set autoindent
 let python_highlight_all = 1
 " Enable folding with the spacebar
 nnoremap <space> za
 
 let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"} " autoclose escape key
-
-" PEP 8 Standards
-" au BufNewFile,BufRead *.py
-    " \ set tabstop=4
-    " \ set softtabstop=4
-    " \ set shiftwidth=4
-    " \ set textwidth=79
-    " \ set expandtab
-    " \ set autoindent
-    " \ set fileformat=unix
 
 " remove whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
@@ -147,7 +138,7 @@ let g:ale_python_pycodestyle_executable = "~/.virtualenvs/neovim3/bin/pycodestyl
 let g:ale_python_black_executable = "~/.virtualenvs/neovim3/bin/black"
 let g:ale_python_pyls_executable  = "/Users/alex/.virtualenvs/neovim3/bin/pyls"
 let g:SimpylFold_docstring_preview=1
-
+let g:ale_typescript_tsserver_executable = 'tsserver'
 
 " Airline.vim {{{
 augroup airline_config
@@ -348,6 +339,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'roxma/nvim-yarp'
   Plug 'sheerun/vim-polyglot'
   Plug 'mileszs/ack.vim'
+  Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
   Plug 'dracula/vim', { 'as': 'dracula' }
 
