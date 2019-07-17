@@ -51,6 +51,7 @@ set magic " Enable extended regexes
 set mouse=a " Enable the mouse
 set noerrorbells " Disable error bells
 set noshowmode " Don't show the current mode (airline.vim takes care of us)
+set nomodeline
 set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
@@ -109,7 +110,7 @@ nnoremap <silent> <leader>c :set nolist!<CR>
 
 " ale
 let g:ale_completion_enabled = 0
-let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv', '.pyenv']
+let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', '.virtualenv', '.pyenv']
 let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
@@ -362,16 +363,9 @@ call plug#begin('~/.config/nvim/plugged')
   " JavaScript
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-  " Plug 'mxw/vim-jsx'
   Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
-  " Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
-  " Plug 'carlitux/deoplete-ternjs'
-  " Plug 'leafgarland/typescript-vim'
-  " Plug 'pangloss/vim-javascript'
-  " Plug 'othree/yajs'
-  " Plug 'jparise/vim-graphql'
-  " Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  " Plug 'zchee/deoplete-jedi'
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  Plug 'zchee/deoplete-jedi'
 
   " Python
   Plug 'Vimjas/vim-python-pep8-indent'

@@ -165,3 +165,4 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/alex/google-cloud-sdk/path.fish.inc' ]; . '/Users/alex/google-cloud-sdk/path.fish.inc'; end
+set -g fish_user_paths "/usr/local/opt/libxml2/bin" $fish_user_paths
