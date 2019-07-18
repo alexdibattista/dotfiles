@@ -4,6 +4,7 @@ let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
 let g:LanguageClient_serverCommands = {
     \'python': ['/Users/alex/.virtualenvs/neovim3/bin/pyls'],}
 let g:LanguageClient_useVirtualText = 0
+autocmd BufWritePost *.py call flake8#Flake8()
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
@@ -310,7 +311,8 @@ augroup filetype_json
   au BufRead,BufNewFile *.json set ft=json syntax=javascript
 augroup END
 " }}}
-
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 call plug#begin('~/.config/nvim/plugged')
   " Utilities
   Plug 'junegunn/rainbow_parentheses.vim'
@@ -368,7 +370,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'zchee/deoplete-jedi'
 
   " Python
-  Plug 'Vimjas/vim-python-pep8-indent'
+  Plug 'vim-syntastic/syntastic'
+  Plug 'nvie/vim-flake8'
+  " Plug 'Vimjas/vim-python-pep8-indent'
   Plug 'lepture/vim-jinja'
   Plug 'plytophogy/vim-virtualenv'
   Plug 'vim-python/python-syntax'
