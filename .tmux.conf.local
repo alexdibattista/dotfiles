@@ -46,7 +46,7 @@ tmux_conf_theme_24b_colour=true
 
 # window style
 tmux_conf_theme_window_fg='default'
-tmux_conf_theme_window_bg='default'
+tmux_conf_theme_window_bg='#26292c'
 
 # highlight focused pane (tmux >= 2.1), possible values are:
 #   - true
@@ -285,5 +285,5 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @resurrect-strategy-nvim 'session'
 set -g @continuum-restore 'on'
 
-run -b '~/.tmux/plugins/tpm/tpm'
+
 

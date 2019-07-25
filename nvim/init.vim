@@ -1,24 +1,18 @@
 let g:python_host_prog = '/Users/alex/.virtualenvs/neovim/bin/python'
 let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
 
-let g:LanguageClient_serverCommands = {
-    \'python': ['/Users/alex/.virtualenvs/neovim3/bin/pyls'],}
-let g:LanguageClient_useVirtualText = 0
-autocmd BufWritePost *.py call flake8#Flake8()
-
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " Syntax highlighting {{{
-set t_Co=256
+syntax on
+if exists("$TMUX")
+        set t_Co=256
+        set notermguicolors
+else
+        set termguicolors
+endif
 set background=dark
 colorscheme onedark
 " }}}
 
-syntax on
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
 set directory=~/.config/nvim/swaps
@@ -70,7 +64,7 @@ set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
 set switchbuf=""
-set termguicolors " Enable true color support
+" set termguicolors " Enable true color support
 set title " Show the filename in the window title bar
 set undofile " Persistent Undo
 set viminfo=%,'9999,s512 " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
@@ -88,7 +82,7 @@ set foldmethod=indent
 set foldlevel=99
 
 autocmd FileType python set autoindent
-let python_highlight_all = 1
+let g:python_highlight_all = 1
 " Enable folding with the spacebar
 nnoremap <space> za
 
@@ -116,31 +110,32 @@ let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['tsserver', 'eslint'],
-      \  'python': ['pyls'],
+      \  'python': ['flake8', 'pyls'],
       \  'markdown': ['remark']}
-let g:ale_fixers = {}
+
 let g:ale_fixers = {
       \  'javascript': ['prettier', 'eslint'],
       \  'typescript': ['prettier', 'eslint'],
       \  'json': ['prettier'],
       \  'css': ['stylelint', 'prettier'],
-      \  'python': ['autopep8'],
+      \  'python': ['yapf'],
       \  'markdown': ['prettier']}
 
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_set_highlights = 0
+
 let g:ale_sign_error = '⇝'
 let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_markdown_remark_lint_use_global = 1
-let g:ale_python_pycodestyle_executable = "~/.virtualenvs/neovim3/bin/pycodestyle"
-let g:ale_python_black_executable = "~/.virtualenvs/neovim3/bin/black"
-let g:ale_python_pyls_executable  = "/Users/alex/.virtualenvs/neovim3/bin/pyls"
-let g:SimpylFold_docstring_preview=1
+
 let g:ale_typescript_tsserver_executable = 'tsserver'
+
+let g:SimpylFold_docstring_preview=1
 
 " Airline.vim {{{
 augroup airline_config
@@ -161,6 +156,20 @@ augroup airline_config
   let g:airline#extensions#tabline#fnamecollapse = 0
   let g:airline#extensions#tabline#fnamemod = ':t'
   let g:airline#extensions#tabline#formatter = 'jsformatter'
+  function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+set statusline=%{LinterStatus()}
 augroup END
 " }}}
 
@@ -224,7 +233,7 @@ augroup nerd_commenter
 
   let NERDSpaceDelims=1
   let NERDCompactSexyComs=1
-  let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
+  let g:nerdcustomdelimiters = { 'racket': { 'left': ';', 'leftalt': '#|', 'rightalt': '|#' } }
 augroup END
 " }}}
 
@@ -364,19 +373,19 @@ call plug#begin('~/.config/nvim/plugged')
 
   " JavaScript
   Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
   Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
   Plug 'zchee/deoplete-jedi'
 
   " Python
-  Plug 'vim-syntastic/syntastic'
-  Plug 'nvie/vim-flake8'
-  " Plug 'Vimjas/vim-python-pep8-indent'
   Plug 'lepture/vim-jinja'
   Plug 'plytophogy/vim-virtualenv'
   Plug 'vim-python/python-syntax'
   Plug 'tmhedberg/SimpylFold'
+
+  " Markdown
+  Plug 'junegunn/goyo.vim'
+  Plug 'plasticboy/vim-markdown'
 
   " CSS
   Plug 'JulesWang/css.vim'
@@ -385,9 +394,6 @@ call plug#begin('~/.config/nvim/plugged')
   " JSON
   Plug 'elzr/vim-json'
 
-  " SQL
-  Plug 'exu/pgsql.vim'
-
   " GIT
   Plug 'lambdalisue/gina.vim'
   Plug 'airblade/vim-gitgutter'
@@ -395,7 +401,6 @@ call plug#begin('~/.config/nvim/plugged')
 
   " Fish
   Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
-  Plug 'dag/vim-fish'
 
   " TMUX
   " Plug 'prabirshrestha/async.vim'

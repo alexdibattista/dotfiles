@@ -38,10 +38,9 @@ function lookbusy ; cat /dev/urandom | hexdump -C | grep --color "ca fe" ; end
 function mp       ; nvim $argv ; end
 function rkt      ; racket -il xrepl $argv ; end
 function t        ; command tree -C $argv ; end
-function tmux     ; command tmux -2 $argv ; end
+function tmux     ; command env TERM=screen-256color-bce tmux $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end
-
 eval (python -m virtualfish auto_activation global_requirements)
 
 # Git
