@@ -48,3 +48,13 @@ pyenv zlib issue:
 - [ ] Figure out how to link ssh keys without committing them to git.
 - [ ] Install pip requirements for python2 and python3 neovim venv
 - [ ] Move language specific settings to their own files (ftplugin??)
+- [ ] Create a alacritty color scheme
+- [ ] Remove TMUX junk and make it slimmer
+- [ ] Create theme for fish
+- [ ] Create theme for VIM
+  - [ ] python
+  - [ ] javascript
+  - [ ] typescript
+  - [ ] css
+  - [ ] HTML
+
