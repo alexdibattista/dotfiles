@@ -1,17 +1,10 @@
 let g:python_host_prog = '/Users/alex/.virtualenvs/neovim/bin/python'
 let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
 
-" Syntax highlighting {{{
+set t_Co=256
 syntax on
-if exists("$TMUX")
-        set t_Co=256
-        set notermguicolors
-else
-        set termguicolors
-endif
-set background=dark
-colorscheme onedark
-" }}}
+set termguicolors " Enable true color support
+color onedark
 
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
@@ -64,7 +57,6 @@ set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
 set switchbuf=""
-" set termguicolors " Enable true color support
 set title " Show the filename in the window title bar
 set undofile " Persistent Undo
 set viminfo=%,'9999,s512 " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
@@ -118,7 +110,7 @@ let g:ale_fixers = {
       \  'typescript': ['prettier', 'eslint'],
       \  'json': ['prettier'],
       \  'css': ['stylelint', 'prettier'],
-      \  'python': ['yapf'],
+      \  'python': ['yapf', 'isort'],
       \  'markdown': ['prettier']}
 
 let g:ale_set_loclist = 0
@@ -144,6 +136,7 @@ augroup airline_config
     let g:airline_symbols = {}
   endif
 
+  let g:airline_theme='onedark'
   let g:airline_powerline_fonts = 1
   let g:airline_section_b = '%{gina#component#repo#name()}:%{gina#component#repo#branch()}'
   let g:airline_skip_empty_sections = 1
@@ -348,6 +341,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'majutsushi/tagbar'
   Plug 'tpope/vim-obsession'
   Plug 'w0rp/ale'
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'roxma/nvim-yarp'
   Plug 'sheerun/vim-polyglot'
   Plug 'mileszs/ack.vim'
@@ -357,6 +351,7 @@ call plug#begin('~/.config/nvim/plugged')
 
   " Themes
   Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'ryanoasis/vim-devicons'
 
   " Search
