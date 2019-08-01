@@ -43,6 +43,11 @@ function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end
 eval (python -m virtualfish auto_activation global_requirements)
 
+
+
+function pshell
+  command pipenv shell --fancy
+end
 # Git
 function ga
   command git add

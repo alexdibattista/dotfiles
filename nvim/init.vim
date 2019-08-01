@@ -124,9 +124,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_markdown_remark_lint_use_global = 1
-
 let g:ale_typescript_tsserver_executable = 'tsserver'
-
 let g:SimpylFold_docstring_preview=1
 
 " Airline.vim {{{
@@ -135,8 +133,9 @@ augroup airline_config
   if !exists('g:airline_symbols')
     let g:airline_symbols = {}
   endif
-
+  let g:airline#extensions#tmuxline#enabled = 0
   let g:airline_theme='onedark'
+  let g:tmuxline_theme='airline'
   let g:airline_powerline_fonts = 1
   let g:airline_section_b = '%{gina#component#repo#name()}:%{gina#component#repo#branch()}'
   let g:airline_skip_empty_sections = 1
@@ -149,6 +148,8 @@ augroup airline_config
   let g:airline#extensions#tabline#fnamecollapse = 0
   let g:airline#extensions#tabline#fnamemod = ':t'
   let g:airline#extensions#tabline#formatter = 'jsformatter'
+
+
   function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -315,6 +316,9 @@ augroup END
 " }}}
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+
+
+
 call plug#begin('~/.config/nvim/plugged')
   " Utilities
   Plug 'junegunn/rainbow_parentheses.vim'
@@ -345,13 +349,12 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'roxma/nvim-yarp'
   Plug 'sheerun/vim-polyglot'
   Plug 'mileszs/ack.vim'
-  Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
-  Plug 'dracula/vim', { 'as': 'dracula' }
 
   " Themes
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'edkolev/tmuxline.vim'
   Plug 'ryanoasis/vim-devicons'
 
   " Search
@@ -421,18 +424,10 @@ let g:tern#arguments = [' — persistent']
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
+
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
