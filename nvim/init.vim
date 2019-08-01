@@ -1,5 +1,5 @@
-let g:python_host_prog = '/Users/alex/.virtualenvs/neovim/bin/python'
-let g:python3_host_prog = '/Users/alex/.virtualenvs/neovim3/bin/python'
+let g:python_host_prog = '~/.virtualenvs/neovim/bin/python'
+let g:python3_host_prog = '~/.virtualenvs/neovim3/bin/python'
 
 set t_Co=256
 syntax on
@@ -314,9 +314,6 @@ augroup filetype_json
   au BufRead,BufNewFile *.json set ft=json syntax=javascript
 augroup END
 " }}}
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-
 
 
 call plug#begin('~/.config/nvim/plugged')
@@ -332,15 +329,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-endwise'
   Plug 'rstacruz/vim-closer'
-  Plug 'godlygeek/tabular'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/denite.nvim'
   Plug 'Shougo/neosnippet.vim'
   Plug 'Shougo/neosnippet-snippets'
-  Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
   Plug 'majutsushi/tagbar'
   Plug 'tpope/vim-obsession'
@@ -373,13 +365,14 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  Plug 'zchee/deoplete-jedi'
+  Plug 'deoplete-plugins/deoplete-jedi'
 
   " Python
   Plug 'lepture/vim-jinja'
   Plug 'plytophogy/vim-virtualenv'
   Plug 'vim-python/python-syntax'
   Plug 'tmhedberg/SimpylFold'
+  Plug 'davidhalter/jedi-vim'
 
   " Markdown
   Plug 'junegunn/goyo.vim'
@@ -405,6 +398,10 @@ call plug#begin('~/.config/nvim/plugged')
   " Plug 'prabirshrestha/asyncomplete.vim'
 call plug#end()
 
+let g:tern_request_timeout = 1
+let g:tern_request_timeout = 6000
+let g:tern#command = ['tern']
+let g:tern#arguments = [' — persistent']
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
@@ -415,15 +412,17 @@ let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_menu_width = 0
 let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 
-let g:tern_request_timeout = 1
-let g:tern_request_timeout = 6000
-let g:tern#command = ['tern']
-let g:tern#arguments = [' — persistent']
+" disable autocompletion, cause we use deoplete for completion
+let g:jedi#completions_enabled = 0
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" open the go-to function in split, not another buffer
+let g:jedi#use_splits_not_buffers = "right"
+
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'

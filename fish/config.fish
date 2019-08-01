@@ -10,6 +10,7 @@ set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 set -x TDD 0
 set PATH $HOME/.cargo/bin $PATH
+set pipenv_fish_fancy yes
 # Paths
 test -d /usr/local/share/npm/bin             ; and set PATH /usr/local/share/npm/bin $PATH
 test -d /usr/local/sbin                      ; and set PATH /usr/local/sbin $PATH
@@ -41,8 +42,9 @@ function t        ; command tree -C $argv ; end
 function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end
-eval (python -m virtualfish auto_activation global_requirements)
 
+eval (python -m virtualfish auto_activation global_requirements)
+eval (pipenv --completion)
 
 
 function pshell
