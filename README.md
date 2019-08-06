@@ -44,12 +44,12 @@ pyenv zlib issue:
 ### TODO:
 
 - [ ] Add linking to install.sh - should I link folders or files? (don't forget nvim/autoload))
-- [ ] Clean up NVIM config
+- [x] Clean up NVIM config
 - [ ] Figure out how to link ssh keys without committing them to git.
-- [ ] Install pip requirements for python2 and python3 neovim venv
+- [x] Install pip requirements for python2 and python3 neovim venv
 - [ ] Move language specific settings to their own files (ftplugin??)
 - [ ] Create a alacritty color scheme
-- [ ] Remove TMUX junk and make it slimmer
+- [x] Remove TMUX junk and make it slimmer
 - [ ] Create theme for fish
 - [ ] Create theme for VIM
   - [ ] python
@@ -57,4 +57,4 @@ pyenv zlib issue:
   - [ ] typescript
   - [ ] css
   - [ ] HTML
-
+- [ ] Script out download and install of zlib before pyenv and python install

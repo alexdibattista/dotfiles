@@ -319,6 +319,11 @@ augroup filetype_json
 augroup END
 " }}}
 
+" Grammous {{{
+let g:grammarous#default_comments_only_filetypes = {
+            \ '*' : 1, 'help' : 0, 'markdown' : 0,
+            \ }
+" }}}
 
 call plug#begin('~/.config/nvim/plugged')
   " Utilities
@@ -381,6 +386,7 @@ call plug#begin('~/.config/nvim/plugged')
   " Markdown
   Plug 'junegunn/goyo.vim'
   Plug 'plasticboy/vim-markdown'
+  Plug 'rhysd/vim-grammarous'
 
   " CSS
   Plug 'JulesWang/css.vim'

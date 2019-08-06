@@ -160,7 +160,10 @@ end
 if status --is-login
   set -gx PATH /usr/local/bin $PATH
 end
-#
+
+# Weird anacoda issue breaks git
+set -gx PATH /usr/local/opt/gettext/bin $PATH
+
 #pyenv
 if command -v pyenv 1>/dev/null 2>&1;
   eval (pyenv init - | source)

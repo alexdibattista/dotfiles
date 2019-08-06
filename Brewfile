@@ -21,6 +21,7 @@ brew 'the_silver_searcher'
 brew 'tmux'
 brew 'tree'
 brew 'zlib'
+brew 'htop'
 
 cask 'anki'
 cask 'firefox'
