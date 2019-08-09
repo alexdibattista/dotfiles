@@ -1,5 +1,88 @@
-let g:python_host_prog = '~/.virtualenvs/neovim/bin/python'
-let g:python3_host_prog = '~/.virtualenvs/neovim3/bin/python'
+call plug#begin('~/.config/nvim/plugged')
+  " Utilities
+  Plug 'junegunn/rainbow_parentheses.vim'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'reedes/vim-wordy'
+  Plug 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'Shougo/vimproc.vim',     { 'do' : 'make' }
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-endwise'
+  Plug 'rstacruz/vim-closer'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/denite.nvim'
+  Plug 'Shougo/neosnippet.vim'
+  Plug 'Shougo/neosnippet-snippets'
+  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+  Plug 'majutsushi/tagbar'
+  Plug 'tpope/vim-obsession'
+  Plug 'w0rp/ale'
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'roxma/nvim-yarp'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'mileszs/ack.vim'
+  Plug 'honza/vim-snippets'
+
+  " Themes
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'edkolev/tmuxline.vim'
+  Plug 'ryanoasis/vim-devicons'
+
+  " Search
+  Plug 'junegunn/fzf',           { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+
+  " Elixir Support
+  Plug 'elixir-lang/vim-elixir'
+  Plug 'avdgaag/vim-phoenix'
+  Plug 'frost/vim-eh-docs'
+  Plug 'slashmili/alchemist.vim'
+  Plug 'jadercorrea/elixir_generator.vim'
+  Plug 'mhinz/vim-mix-format'
+
+  " JavaScript
+  Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  Plug 'deoplete-plugins/deoplete-jedi'
+
+  " Python
+  Plug 'lepture/vim-jinja'
+  Plug 'plytophogy/vim-virtualenv'
+  Plug 'vim-python/python-syntax'
+  Plug 'tmhedberg/SimpylFold'
+  Plug 'davidhalter/jedi-vim'
+
+  " Markdown
+  Plug 'junegunn/goyo.vim'
+  Plug 'plasticboy/vim-markdown'
+  Plug 'rhysd/vim-grammarous'
+
+  " CSS
+  Plug 'JulesWang/css.vim'
+  Plug 'ap/vim-css-color'
+
+  " JSON
+  Plug 'elzr/vim-json'
+
+  " GIT
+  Plug 'lambdalisue/gina.vim'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'jreybert/vimagit'
+
+  " Fish
+  Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
+
+  " TMUX
+  " Plug 'prabirshrestha/async.vim'
+  " Plug 'prabirshrestha/asyncomplete.vim'
+call plug#end()
+
+let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
 
 set t_Co=256
 syntax on
@@ -325,95 +408,13 @@ let g:grammarous#default_comments_only_filetypes = {
             \ }
 " }}}
 
-call plug#begin('~/.config/nvim/plugged')
-  " Utilities
-  Plug 'junegunn/rainbow_parentheses.vim'
-  Plug 'junegunn/vim-easy-align'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'reedes/vim-wordy'
-  Plug 'scrooloose/nerdtree'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'Shougo/vimproc.vim',     { 'do' : 'make' }
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-endwise'
-  Plug 'rstacruz/vim-closer'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/denite.nvim'
-  Plug 'Shougo/neosnippet.vim'
-  Plug 'Shougo/neosnippet-snippets'
-  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-  Plug 'majutsushi/tagbar'
-  Plug 'tpope/vim-obsession'
-  Plug 'w0rp/ale'
-  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'roxma/nvim-yarp'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'mileszs/ack.vim'
-  Plug 'honza/vim-snippets'
-
-  " Themes
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'edkolev/tmuxline.vim'
-  Plug 'ryanoasis/vim-devicons'
-
-  " Search
-  Plug 'junegunn/fzf',           { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-
-  " Elixir Support
-  Plug 'elixir-lang/vim-elixir'
-  Plug 'avdgaag/vim-phoenix'
-  Plug 'frost/vim-eh-docs'
-  Plug 'slashmili/alchemist.vim'
-  Plug 'jadercorrea/elixir_generator.vim'
-  Plug 'mhinz/vim-mix-format'
-
-  " JavaScript
-  Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  Plug 'deoplete-plugins/deoplete-jedi'
-
-  " Python
-  Plug 'lepture/vim-jinja'
-  Plug 'plytophogy/vim-virtualenv'
-  Plug 'vim-python/python-syntax'
-  Plug 'tmhedberg/SimpylFold'
-  Plug 'davidhalter/jedi-vim'
-
-  " Markdown
-  Plug 'junegunn/goyo.vim'
-  Plug 'plasticboy/vim-markdown'
-  Plug 'rhysd/vim-grammarous'
-
-  " CSS
-  Plug 'JulesWang/css.vim'
-  Plug 'ap/vim-css-color'
-
-  " JSON
-  Plug 'elzr/vim-json'
-
-  " GIT
-  Plug 'lambdalisue/gina.vim'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'jreybert/vimagit'
-
-  " Fish
-  Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
-
-  " TMUX
-  " Plug 'prabirshrestha/async.vim'
-  " Plug 'prabirshrestha/asyncomplete.vim'
-call plug#end()
-
 let g:tern_request_timeout = 1
 let g:tern_request_timeout = 6000
 let g:tern#command = ['tern']
 let g:tern#arguments = [' — persistent']
 
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete=1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
@@ -441,6 +442,3 @@ let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippet
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
-" call deoplete#custom#source('matchers', ['matcher_fuzzy'])
-

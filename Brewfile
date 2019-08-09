@@ -4,7 +4,6 @@ tap 'homebrew/bundle'
 tap 'caskroom/cask'
 tap 'homebrew/services'
 
-
 brew 'elixir'
 brew 'fd'
 brew 'fish'
@@ -22,6 +21,7 @@ brew 'tmux'
 brew 'tree'
 brew 'zlib'
 brew 'htop'
+brew 'rippgrep'
 
 cask 'anki'
 cask 'firefox'

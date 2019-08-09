@@ -10,7 +10,7 @@ set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 set -x TDD 0
 set PATH $HOME/.cargo/bin $PATH
-set pipenv_fish_fancy yes
+
 # Paths
 test -d /usr/local/share/npm/bin             ; and set PATH /usr/local/share/npm/bin $PATH
 test -d /usr/local/sbin                      ; and set PATH /usr/local/sbin $PATH
@@ -46,10 +46,9 @@ function view     ; nvim -R $argv ; end
 eval (python -m virtualfish auto_activation global_requirements)
 eval (pipenv --completion)
 
+status --is-interactive; and pyenv init - | source
 
-function pshell
-  command pipenv shell --fancy
-end
+status --is-interactive; and pyenv virtualenv-init - | source
 # Git
 function ga
   command git add
@@ -171,7 +170,6 @@ end
 
 # iterm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/alex/google-cloud-sdk/path.fish.inc' ]; . '/Users/alex/google-cloud-sdk/path.fish.inc'; end
 set -g fish_user_paths "/usr/local/opt/libxml2/bin" $fish_user_paths
