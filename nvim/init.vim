@@ -19,7 +19,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'majutsushi/tagbar'
   Plug 'tpope/vim-obsession'
   Plug 'w0rp/ale'
-  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'roxma/nvim-yarp'
   Plug 'sheerun/vim-polyglot'
   Plug 'mileszs/ack.vim'
