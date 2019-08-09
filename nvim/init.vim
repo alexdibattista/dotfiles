@@ -189,7 +189,7 @@ let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['tsserver', 'eslint'],
-      \  'python': ['flake8', 'pyls'],
+      \  'python': ['pyls'],
       \  'markdown': ['remark']}
 
 let g:ale_fixers = {
