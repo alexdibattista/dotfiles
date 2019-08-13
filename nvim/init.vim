@@ -160,7 +160,6 @@ set foldmethod=indent
 set foldlevel=99
 
 autocmd FileType python set autoindent
-let g:python_highlight_all = 1
 " Enable folding with the spacebar
 nnoremap <space> za
 
@@ -188,7 +187,7 @@ let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['tsserver', 'eslint'],
-      \  'python': ['pyls'],
+      \  'python': ['pycodestyle', 'pydocstyle'],
       \  'markdown': ['remark']}
 
 let g:ale_fixers = {
