@@ -57,7 +57,9 @@ call plug#begin('~/.config/nvim/plugged')
 
   " Markdown
   Plug 'junegunn/goyo.vim'
+  Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
+  Plug 'JamshedVesuna/vim-markdown-preview'
   Plug 'rhysd/vim-grammarous'
 
   " CSS
@@ -98,10 +100,6 @@ let mapleader="," " Map leader
 
 set cc=120
 set softtabstop=2 " Tab key results in 2 spaces
-
-" Python specific settings
-autocmd BufNewFile,BufRead *.py set softtabstop=4
-autocmd BufNewFile,BufRead *.py set cc=80
 
 set clipboard=unnamed
 set cursorline " Highlight current line
@@ -159,9 +157,14 @@ set signcolumn=yes
 set foldmethod=indent
 set foldlevel=99
 
-autocmd FileType python set autoindent
+let vim_markdown_preview_github=1
+let vim_markdown_preview_browser='Firefox'
+let vim_markdown_preview_hotkey='<C-m>'
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+" autocmd FileType python set autoindent
 " Enable folding with the spacebar
-nnoremap <space> za
+" nnoremap <space> za
 
 let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"} " autoclose escape key
 
@@ -187,7 +190,7 @@ let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['tsserver', 'eslint'],
-      \  'python': ['pycodestyle', 'pydocstyle'],
+      \  'python': ['flake8', 'pydocstyle'],
       \  'markdown': ['remark']}
 
 let g:ale_fixers = {
