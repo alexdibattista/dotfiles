@@ -38,7 +38,7 @@ function localip  ; ipconfig getifaddr en0 ; end
 function lookbusy ; cat /dev/urandom | hexdump -C | grep --color "ca fe" ; end
 function mp       ; nvim $argv ; end
 function rkt      ; racket -il xrepl $argv ; end
-function t        ; command tree -C $argv ; end
+function t        ; command todo.sh ; end
 function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end

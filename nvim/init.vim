@@ -98,24 +98,26 @@ set undodir=~/.config/nvim/undo
 
 let mapleader="," " Map leader
 
-set cc=120
-set softtabstop=2 " Tab key results in 2 spaces
 
+" Enable folding
+set cc=120
 set clipboard=unnamed
 set cursorline " Highlight current line
-set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
+set diffopt=filler " Add vertical spaces to keep right and left aligned
 set encoding=utf-8 nobomb " BOM often causes trouble
 set expandtab " Expand tabs to spaces
-set formatoptions=
+set foldlevel=99
+set foldmethod=indent
+set formatoptions+=1 " Break before 1-letter words
+set formatoptions+=2 " Use indent from 2nd line of a paragraph
 set formatoptions+=c " Format comments
-set formatoptions+=r " Continue comments by default
+set formatoptions+=l " Don't break lines that are already long
+set formatoptions+=n " Recognize numbered lists
 set formatoptions+=o " Make comment when using o or O from comment line
 set formatoptions+=q " Format comments with gq
-set formatoptions+=n " Recognize numbered lists
-set formatoptions+=2 " Use indent from 2nd line of a paragraph
-set formatoptions+=l " Don't break lines that are already long
-set formatoptions+=1 " Break before 1-letter words
+set formatoptions+=r " Continue comments by default
+set formatoptions=
 set gdefault " By default add g flag to search/replace. Add g to toggle
 set hidden " when a buffer is brought to foreground, remember undo history and marks
 set ignorecase " Ignore case of searches
@@ -123,8 +125,8 @@ set list!
 set magic " Enable extended regexes
 set mouse=a " Enable the mouse
 set noerrorbells " Disable error bells
-set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set nomodeline
+set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
@@ -136,7 +138,9 @@ set shiftwidth=2 " The # of spaces for indenting
 set shortmess=atI " Don't show the intro message when starting vim
 set showtabline=2 " Always show tab bar
 set sidescrolloff=3 " Start scrolling three columns before vertical border of window
+set signcolumn=yes
 set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters
+set softtabstop=2 " Tab key results in 2 spaces
 set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
@@ -146,16 +150,11 @@ set undofile " Persistent Undo
 set viminfo=%,'9999,s512 " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
 set visualbell
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
-set wildignore+=.DS_Storeset wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
 set wildignore+=*/bower_components/*,*/node_modules/*
 set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
+set wildignore+=.DS_Storeset wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
 set winminheight=0 " Allow splits to be reduced to a single line
 set wrapscan " Searches wrap around end of file
-set signcolumn=yes
-
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
 
 let vim_markdown_preview_github=1
 let vim_markdown_preview_browser='Firefox'
@@ -405,10 +404,10 @@ augroup END
 
 " Grammous {{{
 let g:grammarous#default_comments_only_filetypes = {
-            \ '*' : 1, 'help' : 0, 'markdown' : 0,
+            \ '*' : 1, 'help' : 0, 'markdown' : 1,
             \ }
 " }}}
-
+let g:grammarous#use_vim_spelllang = 1
 let g:tern_request_timeout = 1
 let g:tern_request_timeout = 6000
 let g:tern#command = ['tern']
