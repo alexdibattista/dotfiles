@@ -61,6 +61,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'plasticboy/vim-markdown'
   Plug 'JamshedVesuna/vim-markdown-preview'
   Plug 'rhysd/vim-grammarous'
+  Plug 'dbeniamine/todo.txt-vim'
 
   " CSS
   Plug 'JulesWang/css.vim'
@@ -77,6 +78,8 @@ call plug#begin('~/.config/nvim/plugged')
   " Fish
   Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 
+  Plug 'iCyMind/NeoSolarized'
+
   " TMUX
   " Plug 'prabirshrestha/async.vim'
   " Plug 'prabirshrestha/asyncomplete.vim'
@@ -88,7 +91,7 @@ let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
 set t_Co=256
 syntax on
 set termguicolors " Enable true color support
-color onedark
+colorscheme onedark
 
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
@@ -97,7 +100,6 @@ set undodir=~/.config/nvim/undo
 " }}}
 
 let mapleader="," " Map leader
-
 
 " Enable folding
 set cc=120
@@ -181,6 +183,18 @@ set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
 set fcs=fold:-
 nnoremap <silent> <leader>c :set nolist!<CR>
 " }}}
+
+" Git commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" Use todo#Complete as the omni complete function for todo files
+au filetype todo setlocal omnifunc=todo#Complete
+" Auto complete projects
+au filetype todo imap <buffer> + +<C-X><C-O>
+" Auto complete contexts
+au filetype todo imap <buffer> @ @<C-X><C-O>
+" Open autocomplete window even if only one match
+au filetype todo setlocal completeopt+=menuone
 
 " ale
 let g:ale_completion_enabled = 0
