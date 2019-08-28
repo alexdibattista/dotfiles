@@ -37,6 +37,8 @@ function lookbusy ; cat /dev/urandom | hexdump -C | grep --color "ca fe" ; end
 function mp       ; nvim $argv ; end
 function rkt      ; racket -il xrepl $argv ; end
 function t        ; command todo.sh $argv; end
+function twork    ; command clear && todo.sh ls @bridge7; end
+function thome    ; command clear && todo.sh ls @Home; end
 function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end

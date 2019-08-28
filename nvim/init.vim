@@ -211,7 +211,7 @@ let g:ale_fixers = {
       \  'typescript': ['prettier', 'eslint'],
       \  'json': ['prettier'],
       \  'css': ['stylelint', 'prettier'],
-      \  'python': ['yapf', 'isort'],
+      \  'python': ['black', 'isort'],
       \  'markdown': ['prettier']}
 
 let g:ale_set_loclist = 0
@@ -234,9 +234,8 @@ augroup airline_config
   if !exists('g:airline_symbols')
     let g:airline_symbols = {}
   endif
-  let g:airline#extensions#tmuxline#enabled = 0
+
   let g:airline_theme='onedark'
-  let g:tmuxline_theme='airline'
   let g:airline_powerline_fonts = 1
   let g:airline_section_b = '%{gina#component#repo#name()}:%{gina#component#repo#branch()}'
   let g:airline_skip_empty_sections = 1
@@ -250,21 +249,6 @@ augroup airline_config
   let g:airline#extensions#tabline#fnamemod = ':t'
   let g:airline#extensions#tabline#formatter = 'jsformatter'
 
-
-  function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
-
-set statusline=%{LinterStatus()}
 augroup END
 " }}}
 
