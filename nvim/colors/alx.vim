@@ -51,7 +51,7 @@ endif
 
 set t_Co=256
 
-let g:colors_name="onedark"
+let g:colors_name="alx"
 
 " Set to "256" for 256-color terminals, or
 " set to "16" to use your terminal emulator's native colors

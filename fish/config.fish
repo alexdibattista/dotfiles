@@ -157,9 +157,6 @@ if status --is-login
   set -gx PATH /usr/local/bin $PATH
 end
 
-# Weird anacoda issue breaks git
-set -gx PATH /usr/local/opt/gettext/bin $PATH
-
 #pyenv
 if command -v pyenv 1>/dev/null 2>&1;
   eval (pyenv init - | source)
@@ -167,6 +164,7 @@ end
 
 # iterm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/alex/google-cloud-sdk/path.fish.inc' ]; . '/Users/alex/google-cloud-sdk/path.fish.inc'; end
 

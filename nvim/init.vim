@@ -18,16 +18,19 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
   Plug 'majutsushi/tagbar'
   Plug 'tpope/vim-obsession'
+  " Linting
   Plug 'w0rp/ale'
+  " Remote Update plugins
   Plug 'roxma/nvim-yarp'
+  " collection of language packs
   Plug 'sheerun/vim-polyglot'
+  " Use ag, rg in vim
   Plug 'mileszs/ack.vim'
   Plug 'honza/vim-snippets'
 
   " Themes
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'edkolev/tmuxline.vim'
   Plug 'ryanoasis/vim-devicons'
 
   " Search
@@ -91,7 +94,9 @@ let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
 set t_Co=256
 syntax on
 set termguicolors " Enable true color support
-colorscheme onedark
+" colorscheme onedark
+" colorscheme base16-ocean
+colorscheme alx
 
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
@@ -103,7 +108,7 @@ let mapleader="," " Map leader
 
 " Enable folding
 set cc=120
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set cursorline " Highlight current line
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set diffopt=filler " Add vertical spaces to keep right and left aligned
@@ -235,6 +240,7 @@ augroup airline_config
     let g:airline_symbols = {}
   endif
 
+  let g:airline#extensions#tmuxline#enabled = 0
   let g:airline_theme='onedark'
   let g:airline_powerline_fonts = 1
   let g:airline_section_b = '%{gina#component#repo#name()}:%{gina#component#repo#branch()}'
@@ -354,10 +360,18 @@ augroup END
 " Silver Searcher {{{
 augroup ag_config
   if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
+    " let g:ackprg = 'ag --vimgrep'
+    let g:ackprg = 'rg --vimgrep --no-heading'
   endif
 augroup END
 " }}}
+
+if executable('rg')
+  let g:ctrlp_user_command = 'rg --files %s'
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_switch_buffer = 'et'
+endif
 
 " jsx-pretty.vim {{{
 augroup jsx_pretty_config
@@ -402,7 +416,7 @@ augroup END
 
 " Grammous {{{
 let g:grammarous#default_comments_only_filetypes = {
-            \ '*' : 1, 'help' : 0, 'markdown' : 1,
+            \ '*' : 1, 'help' : 0, 'markdown' : 1, 'gitcommit': 0,
             \ }
 " }}}
 let g:grammarous#use_vim_spelllang = 1
