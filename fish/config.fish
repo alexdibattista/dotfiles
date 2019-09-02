@@ -25,6 +25,7 @@ function ll    ; tree --dirsfirst -ChFupDaLg 1 $argv ; end
 
 # Utilities
 function a        ; command ag --ignore=.git --ignore=log --ignore=tags --ignore=tmp --ignore=vendor --ignore=spec/vcr $argv ; end
+function cat      ; bat $argv ; end
 function d        ; du -h -d=1 $argv ; end
 function df       ; command df -h $argv ; end
 function digga    ; command dig +nocmd $argv[1] any +multiline +noall +answer; end

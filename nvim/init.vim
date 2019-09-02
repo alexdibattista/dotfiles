@@ -1,102 +1,51 @@
 call plug#begin('~/.config/nvim/plugged')
-  " Utilities
-  Plug 'junegunn/rainbow_parentheses.vim'
-  Plug 'junegunn/vim-easy-align'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'reedes/vim-wordy'
-  Plug 'scrooloose/nerdtree'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'Shougo/vimproc.vim',     { 'do' : 'make' }
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-endwise'
-  Plug 'rstacruz/vim-closer'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/denite.nvim'
-  Plug 'Shougo/neosnippet.vim'
-  Plug 'Shougo/neosnippet-snippets'
-  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-  Plug 'majutsushi/tagbar'
-  Plug 'tpope/vim-obsession'
-  " Linting
-  Plug 'w0rp/ale'
-  " Remote Update plugins
-  Plug 'roxma/nvim-yarp'
-  " collection of language packs
-  Plug 'sheerun/vim-polyglot'
-  " Use ag, rg in vim
-  Plug 'mileszs/ack.vim'
-  Plug 'honza/vim-snippets'
-
-  " Themes
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'ryanoasis/vim-devicons'
-
-  " Search
+  Plug 'airblade/vim-gitgutter'
+  Plug 'lambdalisue/gina.vim'
+  Plug 'ap/vim-css-color'
+  Plug 'davidhalter/jedi-vim'
+  Plug 'dbeniamine/todo.txt-vim'
+  Plug 'deoplete-plugins/deoplete-jedi'
+  Plug 'itchyny/lightline.vim'
+  Plug 'maximbaz/lightline-ale'
+  Plug 'jreybert/vimagit'
   Plug 'junegunn/fzf',           { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-
-  " Elixir Support
-  Plug 'elixir-lang/vim-elixir'
-  Plug 'avdgaag/vim-phoenix'
-  Plug 'frost/vim-eh-docs'
-  Plug 'slashmili/alchemist.vim'
-  Plug 'jadercorrea/elixir_generator.vim'
-  Plug 'mhinz/vim-mix-format'
-
-  " JavaScript
-  Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'maxmellon/vim-jsx-pretty', { 'for': [ 'javascript', 'javascript.jsx', 'typescript' ] }
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  Plug 'deoplete-plugins/deoplete-jedi'
-
-  " Python
-  Plug 'lepture/vim-jinja'
-  Plug 'plytophogy/vim-virtualenv'
-  Plug 'vim-python/python-syntax'
-  Plug 'tmhedberg/SimpylFold'
-  Plug 'davidhalter/jedi-vim'
-
-  " Markdown
   Plug 'junegunn/goyo.vim'
-  Plug 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'majutsushi/tagbar'
+  Plug 'mhinz/vim-mix-format'
+  Plug 'jadercorrea/elixir_generator.vim'
+  Plug 'slashmili/alchemist.vim'
+  Plug 'avdgaag/vim-phoenix'
+  Plug 'nathanaelkane/vim-indent-guides'
   Plug 'JamshedVesuna/vim-markdown-preview'
+  Plug 'plytophogy/vim-virtualenv'
+  Plug 'reedes/vim-wordy'
   Plug 'rhysd/vim-grammarous'
-  Plug 'dbeniamine/todo.txt-vim'
-
-  " CSS
-  Plug 'JulesWang/css.vim'
-  Plug 'ap/vim-css-color'
-
-  " JSON
-  Plug 'elzr/vim-json'
-
-  " GIT
-  Plug 'lambdalisue/gina.vim'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'jreybert/vimagit'
-
-  " Fish
-  Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
-
-  Plug 'iCyMind/NeoSolarized'
-
-  " TMUX
-  " Plug 'prabirshrestha/async.vim'
-  " Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'terryma/vim-smooth-scroll'
+  Plug 'wellle/targets.vim'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-repeat'
+  Plug 'w0rp/ale'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/neosnippet.vim'
+  Plug 'Shougo/neosnippet-snippets'
+  Plug 'Shougo/neopairs.vim'
+  Plug 'honza/vim-snippets'
 call plug#end()
 
 let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
 
 set t_Co=256
+set background=dark
 syntax on
-set termguicolors " Enable true color support
-" colorscheme onedark
+colorscheme onedark
 " colorscheme base16-ocean
-colorscheme alx
 
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
@@ -106,6 +55,7 @@ set undodir=~/.config/nvim/undo
 
 let mapleader="," " Map leader
 
+
 " Enable folding
 set cc=120
 set clipboard+=unnamedplus
@@ -114,8 +64,14 @@ set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set encoding=utf-8 nobomb " BOM often causes trouble
 set expandtab " Expand tabs to spaces
-set foldlevel=99
-set foldmethod=indent
+set fillchars+=vert:\
+set foldcolumn=0 " Column to show folds
+set foldenable " Enable folding
+set foldlevel=5 " Open all folds by default
+set foldmethod=syntax " Syntax are used to specify folds
+set foldminlines=0 " Allow folding single lines
+set foldnestmax=5 " Set max fold nesting level
+set formatoptions=
 set formatoptions+=1 " Break before 1-letter words
 set formatoptions+=2 " Use indent from 2nd line of a paragraph
 set formatoptions+=c " Format comments
@@ -124,7 +80,6 @@ set formatoptions+=n " Recognize numbered lists
 set formatoptions+=o " Make comment when using o or O from comment line
 set formatoptions+=q " Format comments with gq
 set formatoptions+=r " Continue comments by default
-set formatoptions=
 set gdefault " By default add g flag to search/replace. Add g to toggle
 set hidden " when a buffer is brought to foreground, remember undo history and marks
 set ignorecase " Ignore case of searches
@@ -152,6 +107,7 @@ set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
 set switchbuf=""
+set termguicolors " Enable true color support
 set title " Show the filename in the window title bar
 set undofile " Persistent Undo
 set viminfo=%,'9999,s512 " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
@@ -163,24 +119,25 @@ set wildignore+=.DS_Storeset wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.
 set winminheight=0 " Allow splits to be reduced to a single line
 set wrapscan " Searches wrap around end of file
 
-let vim_markdown_preview_github=1
-let vim_markdown_preview_browser='Firefox'
-let vim_markdown_preview_hotkey='<C-m>'
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-" autocmd FileType python set autoindent
-" Enable folding with the spacebar
-" nnoremap <space> za
+" Toggle folds (<Space>) {{{
+nnoremap <silent> <space> :exe 'silent! normal! '.((foldclosed('.')>0)? 'zMzx' : 'zc')<CR>
+" }}}
 
-let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"} " autoclose escape key
+" Markdown {{{
+augroup filetype_markdown
+  autocmd!
+  let g:markdown_fenced_languages = ['ruby', 'html', 'javascript', 'css', 'erb=eruby.html', 'bash=sh']
+  let vim_markdown_preview_github=1
+  let vim_markdown_preview_browser='Firefox'
+  let vim_markdown_preview_hotkey='<C-m>'
+  let g:vim_markdown_conceal = 0
+  let g:vim_markdown_conceal_code_blocks = 0
+augroup END
+" }}}
 
 " remove whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
 
-map <C-\> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
 let g:indent_guides_enable_on_vim_startup = 1
 
 " Toggle show tabs and trailing spaces (,c) {{{
@@ -192,14 +149,17 @@ nnoremap <silent> <leader>c :set nolist!<CR>
 " Git commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
-" Use todo#Complete as the omni complete function for todo files
-au filetype todo setlocal omnifunc=todo#Complete
-" Auto complete projects
-au filetype todo imap <buffer> + +<C-X><C-O>
-" Auto complete contexts
-au filetype todo imap <buffer> @ @<C-X><C-O>
-" Open autocomplete window even if only one match
-au filetype todo setlocal completeopt+=menuone
+" todo {{{
+augroup filetype_todo
+  " Use todo#Complete as the omni complete function for todo files
+  au filetype todo setlocal omnifunc=todo#Complete
+  " Auto complete projects
+  au filetype todo imap <buffer> + +<C-X><C-O>
+  " Auto complete contexts
+  au filetype todo imap <buffer> @ @<C-X><C-O>
+  " Open autocomplete window even if only one match
+  au filetype todo setlocal completeopt+=menuone
+" }}}
 
 " ale
 let g:ale_completion_enabled = 0
@@ -219,9 +179,9 @@ let g:ale_fixers = {
       \  'python': ['black', 'isort'],
       \  'markdown': ['prettier']}
 
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_set_highlights = 0
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+" let g:ale_set_highlights = 0
 
 let g:ale_sign_error = '⇝'
 let g:ale_sign_warning = '⚠'
@@ -233,33 +193,71 @@ let g:ale_markdown_remark_lint_use_global = 1
 let g:ale_typescript_tsserver_executable = 'tsserver'
 let g:SimpylFold_docstring_preview=1
 
-" Airline.vim {{{
-augroup airline_config
+augroup lightline_config
   autocmd!
-  if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-  endif
+  let g:lightline#ale#indicator_checking = "\uf110 "
+  let g:lightline#ale#indicator_warnings = "\uf071 "
+  let g:lightline#ale#indicator_errors = "\uf05e "
+  let g:lightline#ale#indicator_ok = "\uf00c "
 
-  let g:airline#extensions#tmuxline#enabled = 0
-  let g:airline_theme='onedark'
-  let g:airline_powerline_fonts = 1
-  let g:airline_section_b = '%{gina#component#repo#name()}:%{gina#component#repo#branch()}'
-  let g:airline_skip_empty_sections = 1
-  let g:airline_symbols.linenr = '␤'
+  let g:lightline = {}
+  let g:lightline.colorscheme = 'one'
+  let g:lightline.component_expand = {
+    \   'linter_checking': 'lightline#ale#checking',
+    \   'linter_warnings': 'lightline#ale#warnings',
+    \   'linter_errors': 'lightline#ale#errors',
+    \   'linter_ok': 'lightline#ale#ok',
+    \ }
 
-  let g:airline#extensions#ale#enabled = 1
-  let g:airline#extensions#tabline#buffer_nr_format = '%s '
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#fnamecollapse = 0
-  let g:airline#extensions#tabline#fnamemod = ':t'
-  let g:airline#extensions#tabline#formatter = 'jsformatter'
+  let g:lightline.component_type = {
+    \   'linter_checking': 'left',
+    \   'linter_warnings': 'warning',
+    \   'linter_errors': 'error',
+    \   'linter_ok': 'left',
+    \ }
+
+  let lightline.component_function = {
+    \   'gitbranch': 'Git',
+    \   'filetype': 'MyFiletype',
+    \   'fileformat': 'MyFileformat',
+    \ }
+
+  let g:lightline.separator = { 'left': '', 'right': '' }
+  let g:lightline.subseparator = { 'left': '', 'right': '' }
+
+  let g:lightline.active = {
+    \   'left': [[ 'mode', 'paste' ],
+    \            [  'gitbranch', 'currentfunction', 'readonly', 'filename', 'modified' ]],
+    \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+    \             [ 'lineinfo' ],
+    \             [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'percent' ]]
+    \ }
+
+  function! Git()
+    return gina#component#repo#name() .':' . gina#component#repo#branch()
+  endfunction
+
+  function! MyFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  endfunction
+
+  function! MyFileformat()
+    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+  endfunction
+
 
 augroup END
-" }}}
 
 " Insert newline {{{
   map <leader><Enter> o<ESC>
+" }}}
+
+" Sudo write (,W) {{{
+noremap <leader>W :w !sudo tee %<CR>
+" }}}
+
+" Remap :W to :w {{{
+command! W w
 " }}}
 
 " add WIP to git {{{
@@ -310,16 +308,16 @@ augroup fzf_config
 augroup END
 " }}}
 
-nmap <F8> :TagbarToggle<CR>
-
-" NERD Commenter {{{
-augroup nerd_commenter
+" vim-smooth-scroll {{{
+augroup vim_smooth_scroll_config
   autocmd!
-
-  let NERDSpaceDelims=1
-  let NERDCompactSexyComs=1
-  let g:nerdcustomdelimiters = { 'racket': { 'left': ';', 'leftalt': '#|', 'rightalt': '|#' } }
+  noremap <silent> <C-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+  noremap <silent> <C-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 augroup END
+" }}}
+
+" TabBar {{{
+  nmap ,8 :TagbarToggle<CR>
 " }}}
 
 " Buffers {{{
@@ -357,6 +355,14 @@ augroup buffer_control
 augroup END
 " }}}
 
+" ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+" }}}
+
 " Silver Searcher {{{
 augroup ag_config
   if executable('ag')
@@ -366,19 +372,6 @@ augroup ag_config
 augroup END
 " }}}
 
-if executable('rg')
-  let g:ctrlp_user_command = 'rg --files %s'
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_switch_buffer = 'et'
-endif
-
-" jsx-pretty.vim {{{
-augroup jsx_pretty_config
-  autocmd!
-  let g:vim_jsx_pretty_colorful_config = 1
-augroup END
-" }}}
 
 " EasyAlign.vim {{{
 augroup easy_align_config
@@ -403,7 +396,6 @@ augroup END
 augroup filetype_javascript
   autocmd!
   let g:jsx_ext_required = 0
-  let g:javascript_plugin_jsdoc = 1
 augroup END
 " }}}
 
@@ -418,26 +410,21 @@ augroup END
 let g:grammarous#default_comments_only_filetypes = {
             \ '*' : 1, 'help' : 0, 'markdown' : 1, 'gitcommit': 0,
             \ }
-" }}}
 let g:grammarous#use_vim_spelllang = 1
-let g:tern_request_timeout = 1
-let g:tern_request_timeout = 6000
-let g:tern#command = ['tern']
-let g:tern#arguments = [' — persistent']
+" }}}
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete=1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_refresh_always = 0
 let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_menu_width = 0
 let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 
 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#completions_enabled = 0
-
 " open the go-to function in split, not another buffer
 let g:jedi#use_splits_not_buffers = "right"
 

@@ -4,6 +4,7 @@ tap 'homebrew/bundle'
 tap 'caskroom/cask'
 tap 'homebrew/services'
 
+brew 'bat'
 brew 'elixir'
 brew 'fd'
 brew 'fish'
