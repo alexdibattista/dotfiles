@@ -5,6 +5,7 @@ set -x FZF_LEGACY_KEYBINDINGS 0
 set -x FZF_DEFAULT_COMMAND 'git ls-tree -r --name-only HEAD 2> /dev/null; or fd --type f --hidden --follow --exclude .git 2> /dev/null'
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -x GPG_TTY (tty)
+
 set -x GREP_COLOR "1;37;45"
 set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
@@ -31,10 +32,10 @@ function df       ; command df -h $argv ; end
 function digga    ; command dig +nocmd $argv[1] any +multiline +noall +answer; end
 function g        ; git $argv ; end
 function grep     ; command grep --color=auto $argv ; end
+function fzf      ; command fzf --preview "bat --style=numbers --color=always {}" ; end
 function httpdump ; sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*" ; end
 function ip       ; curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g' ; end
 function localip  ; ipconfig getifaddr en0 ; end
-function lookbusy ; cat /dev/urandom | hexdump -C | grep --color "ca fe" ; end
 function mp       ; nvim $argv ; end
 function rkt      ; racket -il xrepl $argv ; end
 function t        ; command todo.sh $argv; end
@@ -44,8 +45,8 @@ function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end
 
-eval (python -m virtualfish auto_activation global_requirements)
-eval (pipenv --completion)
+# eval (python -m virtualfish auto_activation global_requirements)
+# eval (pipenv --completion)
 
 status --is-interactive; and pyenv init - | source
 
@@ -159,9 +160,9 @@ if status --is-login
 end
 
 #pyenv
-if command -v pyenv 1>/dev/null 2>&1;
-  eval (pyenv init - | source)
-end
+# if command -v pyenv 1>/dev/null 2>&1;
+#   eval (pyenv init - | source)
+# end
 
 # iterm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
@@ -169,15 +170,16 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/alex/google-cloud-sdk/path.fish.inc' ]; . '/Users/alex/google-cloud-sdk/path.fish.inc'; end
 
+set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/opt/libxml2/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/opt/ncurses/bin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
 set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
-
+# Weird anacoda issue breaks git
+# set -gx PATH /usr/local/opt/gettext/bin $PATH
 function nvm
   bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
 end
 
-set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths

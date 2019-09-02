@@ -7,6 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'deoplete-plugins/deoplete-jedi'
   Plug 'itchyny/lightline.vim'
   Plug 'maximbaz/lightline-ale'
+  Plug 'mengelbrecht/lightline-bufferline'
   Plug 'jreybert/vimagit'
   Plug 'junegunn/fzf',           { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
@@ -81,7 +82,7 @@ set formatoptions+=o " Make comment when using o or O from comment line
 set formatoptions+=q " Format comments with gq
 set formatoptions+=r " Continue comments by default
 set gdefault " By default add g flag to search/replace. Add g to toggle
-set hidden " when a buffer is brought to foreground, remember undo history and marks
+" set hidden " when a buffer is brought to foreground, remember undo history and marks
 set ignorecase " Ignore case of searches
 set list!
 set magic " Enable extended regexes
@@ -195,6 +196,7 @@ let g:SimpylFold_docstring_preview=1
 
 augroup lightline_config
   autocmd!
+
   let g:lightline#ale#indicator_checking = "\uf110 "
   let g:lightline#ale#indicator_warnings = "\uf071 "
   let g:lightline#ale#indicator_errors = "\uf05e "
@@ -202,11 +204,13 @@ augroup lightline_config
 
   let g:lightline = {}
   let g:lightline.colorscheme = 'one'
+  let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
   let g:lightline.component_expand = {
     \   'linter_checking': 'lightline#ale#checking',
     \   'linter_warnings': 'lightline#ale#warnings',
     \   'linter_errors': 'lightline#ale#errors',
     \   'linter_ok': 'lightline#ale#ok',
+    \   'buffers': 'lightline#bufferline#buffers'
     \ }
 
   let g:lightline.component_type = {
@@ -214,6 +218,7 @@ augroup lightline_config
     \   'linter_warnings': 'warning',
     \   'linter_errors': 'error',
     \   'linter_ok': 'left',
+    \   'buffers': 'tabsel'
     \ }
 
   let lightline.component_function = {
@@ -230,7 +235,7 @@ augroup lightline_config
     \            [  'gitbranch', 'currentfunction', 'readonly', 'filename', 'modified' ]],
     \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
     \             [ 'lineinfo' ],
-    \             [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'percent' ]]
+    \             [ 'fileformat', 'fileencoding', 'filetype', 'charvalue', 'percent' ]]
     \ }
 
   function! Git()
@@ -247,7 +252,9 @@ augroup lightline_config
 
 
 augroup END
-
+  " Window title {{{
+  set titlestring=%{expand(\"%:t\")} " Set to just the filename
+  " }}}
 " Insert newline {{{
   map <leader><Enter> o<ESC>
 " }}}
@@ -288,7 +295,7 @@ augroup fzf_config
   let g:fzf_history_dir = '~/.config/nvim/fzf-history'
   let g:fzf_buffers_jump = 1 " Jump to existing buffer if available
 
-  nnoremap <C-p> :Files<CR>
+  nnoremap <C-p> :call Fzf_dev()<CR>
   nnoremap <C-g> :GFiles?<CR>
   nnoremap <C-b> :Buffers<CR>
   nnoremap <C-t> :Tags<CR>
@@ -363,6 +370,39 @@ if executable('rg')
 endif
 " }}}
 
+" Files + devicons
+function! Fzf_dev()
+  let l:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+
+  function! s:files()
+    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    return s:prepend_icon(l:files)
+  endfunction
+
+  function! s:prepend_icon(candidates)
+    let l:result = []
+    for l:candidate in a:candidates
+      let l:filename = fnamemodify(l:candidate, ':p:t')
+      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
+      call add(l:result, printf('%s %s', l:icon, l:candidate))
+    endfor
+
+    return l:result
+  endfunction
+
+  function! s:edit_file(item)
+    let l:pos = stridx(a:item, ' ')
+    let l:file_path = a:item[pos+1:-1]
+    execute 'silent e' l:file_path
+  endfunction
+
+  call fzf#run({
+        \ 'source': <sid>files(),
+        \ 'sink':   function('s:edit_file'),
+        \ 'options': '-m ' . l:fzf_files_options,
+        \ 'up':    '40%' })
+endfunction
+@alexdibattista
 " Silver Searcher {{{
 augroup ag_config
   if executable('ag')
