@@ -5,6 +5,7 @@ tap 'caskroom/cask'
 tap 'homebrew/services'
 
 brew 'bat'
+brew 'diff-so-fancy'
 brew 'elixir'
 brew 'fd'
 brew 'fish'
