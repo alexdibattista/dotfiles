@@ -42,6 +42,7 @@ call plug#end()
 let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
 
+
 set t_Co=256
 set background=dark
 syntax on
@@ -82,7 +83,7 @@ set formatoptions+=o " Make comment when using o or O from comment line
 set formatoptions+=q " Format comments with gq
 set formatoptions+=r " Continue comments by default
 set gdefault " By default add g flag to search/replace. Add g to toggle
-" set hidden " when a buffer is brought to foreground, remember undo history and marks
+set hidden " when a buffer is brought to foreground, remember undo history and marks
 set ignorecase " Ignore case of searches
 set list!
 set magic " Enable extended regexes
@@ -201,9 +202,11 @@ augroup lightline_config
   let g:lightline#ale#indicator_warnings = "\uf071 "
   let g:lightline#ale#indicator_errors = "\uf05e "
   let g:lightline#ale#indicator_ok = "\uf00c "
+  let g:lightline#bufferline#enable_devicons = 1
+  let g:lightline#bufferline#show_number = 1
 
   let g:lightline = {}
-  let g:lightline.colorscheme = 'one'
+  let g:lightline.colorscheme = 'onedark'
   let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
   let g:lightline.component_expand = {
     \   'linter_checking': 'lightline#ale#checking',
@@ -249,9 +252,11 @@ augroup lightline_config
   function! MyFileformat()
     return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
   endfunction
-
-
 augroup END
+
+" Turn on all highlighting for Python from vim-polygot
+let g:python_highlight_all = 1
+
   " Window title {{{
   set titlestring=%{expand(\"%:t\")} " Set to just the filename
   " }}}
@@ -402,7 +407,7 @@ function! Fzf_dev()
         \ 'options': '-m ' . l:fzf_files_options,
         \ 'up':    '40%' })
 endfunction
-@alexdibattista
+
 " Silver Searcher {{{
 augroup ag_config
   if executable('ag')

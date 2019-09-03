@@ -11,7 +11,10 @@ set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 set -x TDD 0
 set PATH $HOME/.cargo/bin $PATH
-
+set fish_key_bindings fish_vi_key_bindings
+if type -q fizzygit
+    fizzygit
+end
 # Paths
 test -d /usr/local/share/npm/bin             ; and set PATH /usr/local/share/npm/bin $PATH
 test -d /usr/local/sbin                      ; and set PATH /usr/local/sbin $PATH
@@ -37,7 +40,6 @@ function httpdump ; sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|
 function ip       ; curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g' ; end
 function localip  ; ipconfig getifaddr en0 ; end
 function mp       ; nvim $argv ; end
-function rkt      ; racket -il xrepl $argv ; end
 function t        ; command todo.sh $argv; end
 function twork    ; command clear && todo.sh ls @bridge7; end
 function thome    ; command clear && todo.sh ls @Home; end
@@ -53,9 +55,9 @@ status --is-interactive; and pyenv init - | source
 status --is-interactive; and pyenv virtualenv-init - | source
 
 # Git
-function ga
-  command git add
-end
+# function ga
+#   command git add
+# end
 
 function gcm --argument msg
   command git commit -m $msg
@@ -65,9 +67,9 @@ function gc
   command git checkout
 end
 
-function gb
-  command git branch
-end
+# function gb
+#   command git branch
+# end
 
 function gs
   command git status
@@ -89,9 +91,9 @@ function gclear
   command git clean -fdx
 end
 
-function gl
-  command git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
-end
+# function gl
+#   command git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
+# end
 
 # Fuzzy find & vim
 function vp
