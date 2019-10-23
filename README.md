@@ -1,40 +1,81 @@
-# Dotfiles
+<h3 align="center">My Dotfiles</h3>
 
-## What gets installed
+---
+
+<p align="center"> How I setup machine for Fish, NeoVim, and Alacritty.
+    <br>
+</p>
+
+## 📝 Table of Contents
+
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Usage](#usage)
+- [Built Using](#built_using)
+- [TODO](../TODO.md)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgement)
+
+## 🧐 About <a name = "about"></a>
+
+Write about 1-2 paragraphs describing the purpose of your project.
+
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+What things you need to install the software and how to install them.
+
+```
+Give examples
+```
+
+### Installing
+
+A step by step series of examples that tell you how to get a development env running.
+
+Say what the step will be
+
+```
+Give the example
+```
+
+And repeat
+
+```
+until finished
+```
+
+End with an example of getting some data out of the system or using it for a little demo.
+
+## 🎈 Usage <a name="usage"></a>
+
+Add notes about how to use the system.
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+- [MongoDB](https://www.mongodb.com/) - Database
+- [Express](https://expressjs.com/) - Server Framework
+- [VueJs](https://vuejs.org/) - Web Framework
+- [NodeJs](https://nodejs.org/en/) - Server Environment
+
+## ✍️ Authors <a name = "authors"></a>
+
+- [@alexdibattista](https://github.com/alexdibattista) - Idea & Initial work
+
+## 🎉 Acknowledgements <a name = "acknowledgement"></a>
+
+- tip to anyone whose code was used
+
+---
 
 ### curl
 
 - brew
 - nvm
 - VimPlug
-
-### brew
-
-- elixir
-- fd
-- fish
-- fzf
-- git
-- neovim
-- node
-- postgres
-- python3
-- reattach-to-user-namespace
-- the_silver_searcher
-- tmux
-- tree
-
-### cask
-
-- firefox
-- google-chrome
-- keepingyouawake
-- private-internet-access
-- sktech
-- slack
-- spectacle
-- visual-studio-code
-- iTerm2
 
 ### Notes:
 
@@ -44,17 +85,5 @@ pyenv zlib issue:
 ### TODO:
 
 - [ ] Add linking to install.sh - should I link folders or files? (don't forget nvim/autoload))
-- [x] Clean up NVIM config
 - [ ] Figure out how to link ssh keys without committing them to git.
-- [x] Install pip requirements for python2 and python3 neovim venv
-- [ ] Move language specific settings to their own files (ftplugin??)
-- [ ] Create a alacritty color scheme
-- [x] Remove TMUX junk and make it slimmer
-- [ ] Create theme for fish
-- [ ] Create theme for VIM
-  - [ ] python
-  - [ ] javascript
-  - [ ] typescript
-  - [ ] css
-  - [ ] HTML
 - [ ] Script out download and install of zlib before pyenv and python install

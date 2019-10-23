@@ -15,6 +15,7 @@ set fish_key_bindings fish_vi_key_bindings
 if type -q fizzygit
     fizzygit
 end
+set -U FZF_TMUX 1
 # Paths
 test -d /usr/local/share/npm/bin             ; and set PATH /usr/local/share/npm/bin $PATH
 test -d /usr/local/sbin                      ; and set PATH /usr/local/sbin $PATH
@@ -47,7 +48,6 @@ function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end
 
-# eval (python -m virtualfish auto_activation global_requirements)
 # eval (pipenv --completion)
 
 status --is-interactive; and pyenv init - | source

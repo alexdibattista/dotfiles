@@ -1,42 +1,43 @@
 call plug#begin('~/.config/nvim/plugged')
+  Plug 'JamshedVesuna/vim-markdown-preview'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/neopairs.vim'
+  Plug 'Shougo/neosnippet-snippets'
+  Plug 'Shougo/neosnippet.vim'
   Plug 'airblade/vim-gitgutter'
-  Plug 'lambdalisue/gina.vim'
   Plug 'ap/vim-css-color'
+  Plug 'avdgaag/vim-phoenix'
   Plug 'davidhalter/jedi-vim'
   Plug 'dbeniamine/todo.txt-vim'
+  Plug 'dense-analysis/ale'
   Plug 'deoplete-plugins/deoplete-jedi'
+  Plug 'honza/vim-snippets'
   Plug 'itchyny/lightline.vim'
-  Plug 'maximbaz/lightline-ale'
-  Plug 'mengelbrecht/lightline-bufferline'
+  Plug 'jadercorrea/elixir_generator.vim'
   Plug 'jreybert/vimagit'
   Plug 'junegunn/fzf',           { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/goyo.vim'
   Plug 'junegunn/vim-easy-align'
+  Plug 'lambdalisue/gina.vim'
   Plug 'majutsushi/tagbar'
+  Plug 'maximbaz/lightline-ale'
+  Plug 'mengelbrecht/lightline-bufferline'
   Plug 'mhinz/vim-mix-format'
-  Plug 'jadercorrea/elixir_generator.vim'
-  Plug 'slashmili/alchemist.vim'
-  Plug 'avdgaag/vim-phoenix'
   Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'JamshedVesuna/vim-markdown-preview'
   Plug 'plytophogy/vim-virtualenv'
   Plug 'reedes/vim-wordy'
   Plug 'rhysd/vim-grammarous'
   Plug 'roxma/nvim-yarp'
+  Plug 'ruanyl/vim-sort-imports'
   Plug 'ryanoasis/vim-devicons'
   Plug 'sheerun/vim-polyglot'
+  Plug 'slashmili/alchemist.vim'
   Plug 'terryma/vim-smooth-scroll'
-  Plug 'wellle/targets.vim'
-  Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-repeat'
-  Plug 'w0rp/ale'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/neosnippet.vim'
-  Plug 'Shougo/neosnippet-snippets'
-  Plug 'Shougo/neopairs.vim'
-  Plug 'honza/vim-snippets'
+  Plug 'tpope/vim-surround'
+  Plug 'wellle/targets.vim'
 call plug#end()
 
 let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
@@ -47,8 +48,9 @@ set t_Co=256
 set background=dark
 syntax on
 colorscheme onedark
-" colorscheme base16-ocean
-
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#474747 ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#767676 ctermbg=4
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
 set directory=~/.config/nvim/swaps
@@ -169,11 +171,12 @@ let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', '.virtualenv', '.
 let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
-      \  'typescript': ['tsserver', 'eslint'],
+      \  'typescript': ['eslint'],
       \  'python': ['flake8', 'pydocstyle'],
       \  'markdown': ['remark']}
 
 let g:ale_fixers = {
+      \  'elixir': ['mix_format'],
       \  'javascript': ['prettier', 'eslint'],
       \  'typescript': ['prettier', 'eslint'],
       \  'json': ['prettier'],
@@ -192,7 +195,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_markdown_remark_lint_use_global = 1
-let g:ale_typescript_tsserver_executable = 'tsserver'
 let g:SimpylFold_docstring_preview=1
 
 augroup lightline_config
