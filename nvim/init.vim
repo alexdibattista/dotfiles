@@ -38,15 +38,17 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'wellle/targets.vim'
+  Plug 'joshdick/onedark.vim'
 call plug#end()
 
 let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
 
-
 set t_Co=256
 set background=dark
 syntax on
+let g:onedark_terminal_italics = 1
+let g:onedark_hide_endofbuffer = 1
 colorscheme onedark
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#474747 ctermbg=3
@@ -455,8 +457,8 @@ augroup END
 
 " Grammous {{{
 let g:grammarous#default_comments_only_filetypes = {
-            \ '*' : 1, 'help' : 0, 'markdown' : 1, 'gitcommit': 0,
-            \ }
+  \ '*' : 1, 'help' : 0, 'markdown' : 1, 'gitcommit': 0,
+\ }
 let g:grammarous#use_vim_spelllang = 1
 " }}}
 
@@ -475,9 +477,6 @@ let g:jedi#completions_enabled = 0
 " open the go-to function in split, not another buffer
 let g:jedi#use_splits_not_buffers = "right"
 
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
