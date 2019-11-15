@@ -10,8 +10,9 @@ set -x GREP_COLOR "1;37;45"
 set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 set -x TDD 0
-set PATH $HOME/.cargo/bin $PATH
-set fish_key_bindings fish_vi_key_bindings
+set -x fish_key_bindings fish_vi_key_bindings
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+
 if type -q fizzygit
     fizzygit
 end
@@ -173,9 +174,9 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 if [ -f '/Users/alex/google-cloud-sdk/path.fish.inc' ]; . '/Users/alex/google-cloud-sdk/path.fish.inc'; end
 
 set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/opt/libxml2/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/opt/ncurses/bin" $fish_user_paths
+set -g fish_user_paths "$HOME/.poetry/bin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
 set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"

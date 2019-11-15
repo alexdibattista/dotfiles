@@ -3,7 +3,7 @@
 	name = Alexander Di Battista
 [core]
 	excludesfile = ~/.gitignore
-        pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [merge]
 	tool = opendiff
 [color]
