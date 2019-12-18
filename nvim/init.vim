@@ -228,8 +228,7 @@ augroup lightline_config
     \   'gitbranch': 'Git',
     \   'filetype': 'MyFiletype',
     \   'fileformat': 'MyFileformat',
-    \   'cocstatus': 'coc#status',
-    \   'currentfunction': 'CocCurrentFunction',
+    \   'venv': 'virtualenv#statusline',
     \   'filename': 'FilenameForLightline',
     \   'charvaluehex': 'CharValueHex'
     \ }
@@ -239,15 +238,11 @@ augroup lightline_config
 
   let g:lightline.active = {
     \   'left': [[ 'mode', 'paste' ],
-    \            [  'gitbranch', 'currentfunction', 'readonly', 'filename', 'modified' ]],
+    \            [  'gitbranch', 'readonly', 'filename', 'modified' ], ['venv']],
     \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
     \             [ 'lineinfo' ],
     \             [ 'cocstatus', 'currentfunction', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'percent' ]],
   \ }
-
-  function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-  endfunction
 
   " Show full path of filename
   function! FilenameForLightline()
