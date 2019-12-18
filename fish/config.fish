@@ -173,10 +173,10 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/alex/google-cloud-sdk/path.fish.inc' ]; . '/Users/alex/google-cloud-sdk/path.fish.inc'; end
 
-set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/libxml2/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/ncurses/bin" $fish_user_paths
-set -g fish_user_paths "$HOME/.poetry/bin" $fish_user_paths
+# set -Ux fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
+# set -Ux fish_user_paths "/usr/local/opt/libxml2/bin" $fish_user_paths
+# set -Ux fish_user_paths "/usr/local/opt/ncurses/bin" $fish_user_paths
+# set -Ux fish_user_paths "$HOME/.poetry/bin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
 set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
@@ -186,3 +186,4 @@ function nvm
   bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
 end
 
+set -g fish_user_paths "/usr/local/opt/gettext/bin" $fish_user_paths

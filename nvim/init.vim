@@ -57,10 +57,15 @@ set undodir=~/.config/nvim/undo
 let mapleader="," " Map leader
 
 
+setlocal tabstop=2
+set softtabstop=2 " Tab key results in 2 spaces
+set shiftwidth=2 " The # of spaces for indenting
+setlocal cc=88
 " Enable folding
-set cc=120
+" set cc=120
 set clipboard+=unnamedplus
 set cursorline " Highlight current line
+set cmdheight=2 " Better display for messages
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set encoding=utf-8 nobomb " BOM often causes trouble
@@ -73,14 +78,14 @@ set foldmethod=syntax " Syntax are used to specify folds
 set foldminlines=0 " Allow folding single lines
 set foldnestmax=5 " Set max fold nesting level
 set formatoptions=
-set formatoptions+=1 " Break before 1-letter words
-set formatoptions+=2 " Use indent from 2nd line of a paragraph
-set formatoptions+=c " Format comments
-set formatoptions+=l " Don't break lines that are already long
-set formatoptions+=n " Recognize numbered lists
-set formatoptions+=o " Make comment when using o or O from comment line
-set formatoptions+=q " Format comments with gq
-set formatoptions+=r " Continue comments by default
+" set formatoptions+=1 " Break before 1-letter words
+" set formatoptions+=2 " Use indent from 2nd line of a paragraph
+" set formatoptions+=c " Format comments
+" set formatoptions+=l " Don't break lines that are already long
+" set formatoptions+=n " Recognize numbered lists
+" set formatoptions+=o " Make comment when using o or O from comment line
+" set formatoptions+=q " Format comments with gq
+" set formatoptions+=r " Continue comments by default
 set gdefault " By default add g flag to search/replace. Add g to toggle
 set hidden " when a buffer is brought to foreground, remember undo history and marks
 set ignorecase " Ignore case of searches
@@ -97,13 +102,11 @@ set ofu=syntaxcomplete#Complete " Set omni-completion method
 set report=0 " Show all changes
 set ruler
 set scrolloff=3 " Start scrolling three lines before horizontal border of window
-set shiftwidth=2 " The # of spaces for indenting
 set shortmess=atI " Don't show the intro message when starting vim
 set showtabline=2 " Always show tab bar
 set sidescrolloff=3 " Start scrolling three columns before vertical border of window
 set signcolumn=yes
 set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters
-set softtabstop=2 " Tab key results in 2 spaces
 set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
@@ -165,7 +168,6 @@ augroup filetype_todo
 " ale
 let g:ale_completion_enabled = 0
 let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', '.virtualenv', '.pyenv']
-let b:ale_linter_aliases = {'tsx': 'typescript'}
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['eslint'],
@@ -174,13 +176,12 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
       \  'elixir': ['mix_format'],
-      \  'javascript': ['prettier', 'eslint'],
-      \  'typescript': ['prettier', 'eslint'],
+      \  'javascript': [],
+      \  'typescript': [],
       \  'json': ['prettier'],
       \  'css': ['stylelint', 'prettier'],
-      \  'python': ['black', 'isort'],
+      \  'python': [],
       \  'markdown': ['prettier']}
-
 " let g:ale_set_loclist = 0
 " let g:ale_set_quickfix = 1
 " let g:ale_set_highlights = 0
@@ -227,6 +228,10 @@ augroup lightline_config
     \   'gitbranch': 'Git',
     \   'filetype': 'MyFiletype',
     \   'fileformat': 'MyFileformat',
+    \   'cocstatus': 'coc#status',
+    \   'currentfunction': 'CocCurrentFunction',
+    \   'filename': 'FilenameForLightline',
+    \   'charvaluehex': 'CharValueHex'
     \ }
 
   let g:lightline.separator = { 'left': '', 'right': '' }
@@ -237,8 +242,23 @@ augroup lightline_config
     \            [  'gitbranch', 'currentfunction', 'readonly', 'filename', 'modified' ]],
     \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
     \             [ 'lineinfo' ],
-    \             [ 'fileformat', 'fileencoding', 'filetype', 'charvalue', 'percent' ]]
-    \ }
+    \             [ 'cocstatus', 'currentfunction', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'percent' ]],
+  \ }
+
+  function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+  endfunction
+
+  " Show full path of filename
+  function! FilenameForLightline()
+    return expand('%')
+  endfunction
+
+  function! CharValueHex()
+    let charvaluehex = printf('%02x', char2nr(getline('.')[col('.')-1]))
+
+    return winwidth(0) > 70 ? charvaluehex : ''
+  endfunction
 
   function! Git()
     return gina#component#repo#name() .':' . gina#component#repo#branch()
@@ -436,13 +456,6 @@ augroup repeat_config
 augroup END
 " }}}
 
-" JavaScript {{{
-augroup filetype_javascript
-  autocmd!
-  let g:jsx_ext_required = 0
-augroup END
-" }}}
-
 " JSON {{{
 augroup filetype_json
   autocmd!
@@ -473,25 +486,51 @@ function! s:show_documentation()
   endif
 endfunction
 
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-"
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" " Use tab for trigger completion with characters ahead and navigate.
+" " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
-
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
