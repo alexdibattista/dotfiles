@@ -1,5 +1,4 @@
 call plug#begin('~/.config/nvim/plugged')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'JamshedVesuna/vim-markdown-preview'
   Plug 'airblade/vim-gitgutter'
   Plug 'ap/vim-css-color'
@@ -34,6 +33,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'wellle/targets.vim'
   Plug 'joshdick/onedark.vim'
+  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' }
 call plug#end()
 
 let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
@@ -171,7 +171,7 @@ let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', '.virtualenv', '.
 let g:ale_linters = {
       \  'javascript': ['eslint'],
       \  'typescript': ['eslint'],
-      \  'python': ['flake8', 'pydocstyle'],
+      \  'python': ['pyls', 'pydocstyle'],
       \  'markdown': ['remark']}
 
 let g:ale_fixers = {
@@ -241,7 +241,7 @@ augroup lightline_config
     \            [  'gitbranch', 'readonly', 'filename', 'modified' ], ['venv']],
     \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
     \             [ 'lineinfo' ],
-    \             [ 'cocstatus', 'currentfunction', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'percent' ]],
+    \             [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'percent' ]],
   \ }
 
   " Show full path of filename
@@ -465,67 +465,32 @@ let g:grammarous#default_comments_only_filetypes = {
 let g:grammarous#use_vim_spelllang = 1
 " }}}
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" Setup individual Language Servers from $PATH
+let g:LanguageClient_serverCommands = {
+\   'python': ['pyls'],
+\   'typescript': ['javascript-typescript-stdio'],
+\   'typescript.tsx': ['javascript-typescript-stdio'],
+\   'json': ['vscode-json-languageserver', '--stdio'],
+\   'rust': ['rustup', 'run', 'stable', 'rls'],
+\ }
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>" For conceal markers.
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" Disable diagnostic signs in the signcolumn
+" Do this because Gitgutter is more important in the signcolumn and virtual text means we don't need these signs
+let g:LanguageClient_diagnosticsSignsMax = 0
 
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" Set the location for LCNV to load settings from
+let g:LanguageClient_settingsPath = '~/.config/nvim/lcnv-settings.json'
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" " Use tab for trigger completion with characters ahead and navigate.
-" " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" Use the LanguageClient-Neovim key bindings in appropriate file buffers only to avoid breaking normal functionality
+function s:SetLCNVKeyBindings()
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+endfunction()

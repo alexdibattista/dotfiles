@@ -1,0 +1,7 @@
+{
+  "clients": {
+    "pyls": {
+      "configurationSources": ["flake8"]
+    }
+  }
+}
