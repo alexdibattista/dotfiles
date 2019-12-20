@@ -8,7 +8,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'dense-analysis/ale'
   Plug 'honza/vim-snippets'
   Plug 'itchyny/lightline.vim'
-  Plug 'jadercorrea/elixir_generator.vim'
   Plug 'jreybert/vimagit'
   Plug 'junegunn/fzf',           { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
@@ -34,6 +33,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'wellle/targets.vim'
   Plug 'joshdick/onedark.vim'
+  Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
