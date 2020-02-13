@@ -36,6 +36,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
+" Map leader
+let mapleader=","
 let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
 
@@ -45,83 +47,112 @@ syntax on
 let g:onedark_terminal_italics = 1
 let g:onedark_hide_endofbuffer = 1
 colorscheme onedark
+
+" set indent guides and colours
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#474747 ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#767676 ctermbg=4
+
 " Local directories {{{
 set backupdir=~/.config/nvim/backups
 set directory=~/.config/nvim/swaps
 set undodir=~/.config/nvim/undo
 " }}}
 
-let mapleader="," " Map leader
 
-
+" Tab stops at 2 spaces
 setlocal tabstop=2
-set softtabstop=2 " Tab key results in 2 spaces
-set shiftwidth=2 " The # of spaces for indenting
+" Tab key results in 2 spaces
+set softtabstop=2
+" The # of spaces for indenting
+set shiftwidth=2
+" set the width bar to 88 characters
 setlocal cc=88
-" Enable folding
-" set cc=120
 set clipboard+=unnamedplus
-set cursorline " Highlight current line
-set cmdheight=2 " Better display for messages
-set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
-set diffopt=filler " Add vertical spaces to keep right and left aligned
-set encoding=utf-8 nobomb " BOM often causes trouble
-set expandtab " Expand tabs to spaces
+" Highlight current line
+set cursorline
+" Better display for messages
+set cmdheight=2
+" Ignore whitespace changes (focus on code changes)
+set diffopt+=iwhite
+" Add vertical spaces to keep right and left aligned
+set diffopt=filler
+" BOM often causes trouble
+set encoding=utf-8 nobomb
+" Expand tabs to spaces
+set expandtab
 set fillchars+=vert:\
-set foldcolumn=0 " Column to show folds
-set foldenable " Enable folding
-set foldlevel=5 " Open all folds by default
-set foldmethod=syntax " Syntax are used to specify folds
-set foldminlines=0 " Allow folding single lines
-set foldnestmax=5 " Set max fold nesting level
-set formatoptions=
-" set formatoptions+=1 " Break before 1-letter words
-" set formatoptions+=2 " Use indent from 2nd line of a paragraph
-" set formatoptions+=c " Format comments
-" set formatoptions+=l " Don't break lines that are already long
-" set formatoptions+=n " Recognize numbered lists
-" set formatoptions+=o " Make comment when using o or O from comment line
-" set formatoptions+=q " Format comments with gq
-" set formatoptions+=r " Continue comments by default
-set gdefault " By default add g flag to search/replace. Add g to toggle
-set hidden " when a buffer is brought to foreground, remember undo history and marks
-set ignorecase " Ignore case of searches
+" Column to show folds
+set foldcolumn=0
+" Enable folding
+set foldenable
+" Open all folds by default
+set foldlevel=5
+" Syntax are used to specify folds
+set foldmethod=syntax
+" Allow folding single lines
+set foldminlines=0
+" Set max fold nesting level
+set foldnestmax=5
+set gdefault
+" when a buffer is brought to foreground, remember undo history and marks
+set hidden
+" Ignore case of searches
+set ignorecase
 set list!
-set magic " Enable extended regexes
-set mouse=a " Enable the mouse
-set noerrorbells " Disable error bells
+" Enable extended regexes
+set magic
+" Enable the mouse
+set mouse=a
+" Disable error bells
+set noerrorbells
 set nomodeline
-set noshowmode " Don't show the current mode (airline.vim takes care of us)
-set nostartofline " Don't reset cursor to start of line when moving around
-set nowrap " Do not wrap lines
-set nu " Enable line numbers
-set ofu=syntaxcomplete#Complete " Set omni-completion method
-set report=0 " Show all changes
+" Don't show the current mode (airline.vim takes care of us)
+set noshowmode
+" Don't reset cursor to start of line when moving around
+set nostartofline
+" Do not wrap lines
+set nowrap
+" Enable line numbers
+set nu
+" Set omni-completion method
+set ofu=syntaxcomplete#Complete
+" Show all changes
+set report=0
 set ruler
-set scrolloff=3 " Start scrolling three lines before horizontal border of window
-set shortmess=atI " Don't show the intro message when starting vim
-set showtabline=2 " Always show tab bar
-set sidescrolloff=3 " Start scrolling three columns before vertical border of window
+" Start scrolling three lines before horizontal border of window
+set scrolloff=3
+" Don't show the intro message when starting vim
+set shortmess=atI
+" Always show tab bar
+set showtabline=2
+" Start scrolling three columns before vertical border of window
+set sidescrolloff=3
 set signcolumn=yes
-set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters
-set splitbelow " New window goes below
-set splitright " New windows goes right
+" Ignore 'ignorecase' if search patter contains uppercase characters
+set smartcase
+" New window goes below
+set splitbelow
+" New windows goes right
+set splitright
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
 set switchbuf=""
 set termguicolors " Enable true color support
 set title " Show the filename in the window title bar
-set undofile " Persistent Undo
-set viminfo=%,'9999,s512 " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
+" Persistent Undo
+set undofile
+" Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
+set viminfo=%,'9999,s512
 set visualbell
-set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
+" Character for CLI expansion (TAB-completion)
+set wildchar=<TAB>
 set wildignore+=*/bower_components/*,*/node_modules/*
 set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
 set wildignore+=.DS_Storeset wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
-set winminheight=0 " Allow splits to be reduced to a single line
-set wrapscan " Searches wrap around end of file
+" Allow splits to be reduced to a single line
+set winminheight=0
+" Searches wrap around end of file
+set wrapscan
 
 " Toggle folds (<Space>) {{{
 nnoremap <silent> <space> :exe 'silent! normal! '.((foldclosed('.')>0)? 'zMzx' : 'zc')<CR>
@@ -180,11 +211,8 @@ let g:ale_fixers = {
       \  'typescript': [],
       \  'json': ['prettier'],
       \  'css': ['stylelint', 'prettier'],
-      \  'python': [],
+      \  'python': ['isort'],
       \  'markdown': ['prettier']}
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-" let g:ale_set_highlights = 0
 
 let g:ale_sign_error = '⇝'
 let g:ale_sign_warning = '⚠'
@@ -526,6 +554,10 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+nnoremap <silent> <leader>ll <Plug>NetrwRefresh
+
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif

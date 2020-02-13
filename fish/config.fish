@@ -14,9 +14,11 @@ set -x fish_key_bindings fish_vi_key_bindings
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 if type -q fizzygit
-    fizzygit
+  fizzygit
 end
+
 set -U FZF_TMUX 1
+
 # Paths
 test -d /usr/local/share/npm/bin             ; and set PATH /usr/local/share/npm/bin $PATH
 test -d /usr/local/sbin                      ; and set PATH /usr/local/sbin $PATH
@@ -49,52 +51,8 @@ function tmux     ; command tmux -2 $argv ; end
 function tunnel   ; ssh -D 8080 -C -N $argv ; end
 function view     ; nvim -R $argv ; end
 
-# eval (pipenv --completion)
-
 status --is-interactive; and pyenv init - | source
-
-status --is-interactive; and pyenv virtualenv-init - | source
-
-# Git
-# function ga
-#   command git add
-# end
-
-function gcm --argument msg
-  command git commit -m $msg
-end
-
-function gc
-  command git checkout
-end
-
-# function gb
-#   command git branch
-# end
-
-function gs
-  command git status
-end
-
-function gwc
-  command git whatchanged -p --abbrev-commit --pretty=medium
-end
-
-function gd --argument args
-  command git diff $args
-end
-
-function gundo
-  command git reset --soft HEAD~1
-end
-
-function gclear
-  command git clean -fdx
-end
-
-# function gl
-#   command git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
-# end
+status --is-interactive; and source (rbenv init -|psub)
 
 # Fuzzy find & vim
 function vp
@@ -148,8 +106,6 @@ function make_completion --argument-names alias command
     complete -c $alias -a "(__alias_completion_$alias)"
 end
 
-make_completion g 'git'
-
 # fisher
 set fisher_home ~/.local/share/fisherman
 if test -f $fisher_home/config.fish
@@ -162,11 +118,6 @@ if status --is-login
   set -gx PATH /usr/local/bin $PATH
 end
 
-#pyenv
-# if command -v pyenv 1>/dev/null 2>&1;
-#   eval (pyenv init - | source)
-# end
-
 # iterm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
@@ -176,10 +127,12 @@ if [ -f '/Users/alex/google-cloud-sdk/path.fish.inc' ]; . '/Users/alex/google-cl
 # set -Ux fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
 # set -Ux fish_user_paths "/usr/local/opt/libxml2/bin" $fish_user_paths
 # set -Ux fish_user_paths "/usr/local/opt/ncurses/bin" $fish_user_paths
-# set -Ux fish_user_paths "$HOME/.poetry/bin" $fish_user_paths
+set -gx fish_user_paths "$HOME/.poetry/bin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
 set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
+set -gx RUBY_CONFIGURE_OPTS "--with-openssl-dir=/usr/local/opt"
+
 # Weird anacoda issue breaks git
 # set -gx PATH /usr/local/opt/gettext/bin $PATH
 function nvm
@@ -187,3 +140,7 @@ function nvm
 end
 
 set -g fish_user_paths "/usr/local/opt/gettext/bin" $fish_user_paths
+
+# Created by `userpath` on 2020-01-20 15:43:33
+set PATH $PATH /Users/alex/.local/bin
+set -g fish_user_paths "/usr/local/opt/postgresql@11/bin" $fish_user_paths
