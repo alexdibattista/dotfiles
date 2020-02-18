@@ -38,16 +38,15 @@ call plug#end()
 
 " Map leader
 let mapleader=","
-let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/Users/alex/.pyenv/versions/neovim3/bin/python'
+" let g:python_host_prog = '/Users/alex/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '~/.pyenv/versions/neovim3/bin/python'
 
 set t_Co=256
 set background=dark
 syntax on
 let g:onedark_terminal_italics = 1
 let g:onedark_hide_endofbuffer = 1
-colorscheme onedark
-
+colorscheme space-vim-dark
 " set indent guides and colours
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#474747 ctermbg=3
@@ -336,7 +335,7 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 
 " fzf {{{
 augroup fzf_config
-  set rtp+=/usr/local/opt/fzf
+  set rtp+=/usr/local/bin/fzf
 
   let g:fzf_layout = { 'up': '~40%' }
   let g:fzf_history_dir = '~/.config/nvim/fzf-history'
@@ -409,6 +408,8 @@ augroup buffer_control
 augroup END
 " }}}
 
+" If installed using git
+set rtp+=~/.fzf
 " ripgrep
 if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'

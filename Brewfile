@@ -12,7 +12,7 @@ brew 'fd'
 brew 'fish'
 brew 'fzf'
 brew 'git'
-brew 'grip'
+/* brew 'grip' */
 brew 'htop'
 brew 'neovim'
 brew 'node'
