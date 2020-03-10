@@ -1,0 +1,5 @@
+" Unimpaired - moving through buffers
+
+Plug 'tpope/vim-unimpaired'
+
+" vim:ft=vim

@@ -1,0 +1,5 @@
+" Phoenix
+
+Plug 'slashmili/alchemist.vim'
+Plug 'avdgaag/vim-phoenix'
+Plug 'mhinz/vim-mix-format'

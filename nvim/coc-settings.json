@@ -1,0 +1,25 @@
+{
+  "python.pythonPath":"/Users/alexd/.pyenv/shims/python",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.hintSign": ">>",
+  "diagnostic.infoSign": ">>",
+  "diagnostic.errorSign": "!!",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "Markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "ruby"
+  ],
+  "tsserver.formatOnType": true,
+  "coc.preferences.formatOnType": true,
+  "solargraph.completion": true,
+  "solargraph.commandPath": "/Users/alexd/.rbenv/shims/solargraph",
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true
+}
+

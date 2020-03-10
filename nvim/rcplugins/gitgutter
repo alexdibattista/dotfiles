@@ -1,0 +1,2 @@
+" git gutter
+Plug 'airblade/vim-gitgutter'

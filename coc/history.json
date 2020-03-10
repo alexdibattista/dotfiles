@@ -1,0 +1,21 @@
+{
+  "commands": {
+    "%2FUsers%2Falexd%2Fcode%2Fcoverfinancial%2Fgateway": [
+      "auto",
+      "config"
+    ],
+    "%2FUsers%2Falexd%2Fcode%2FTorqueForge%2Fcover-2020-feb%2Fbottles": [
+      "config"
+    ]
+  },
+  "lists": {
+    "%2FUsers%2Falexd%2Fcode%2Fcoverfinancial%2Fpolicy-admin": [
+      "links"
+    ],
+    "%2FUsers%2Falexd%2F": {
+      "config%2Fnvim": [
+        "snippts"
+      ]
+    }
+  }
+}

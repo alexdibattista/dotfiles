@@ -1,0 +1,59 @@
+" Lightline - Minimal statusline
+
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+
+let g:lightline#bufferline#enable_devicons = 1
+let g:lightline#bufferline#show_number = 1
+
+let g:lightline = {
+  \ 'colorscheme': 'onedark',
+  \ 'separator':
+  \ {
+  \   'left':'',
+  \   'right': ''
+  \ },
+  \ 'subseparator':
+  \ {
+  \   'left':'',
+  \   'right': ''
+  \ },
+  \ 'active': {
+  \   'left': [[ 'mode', 'paste' ],
+  \            [  'gitbranch', 'readonly', 'filename', 'modified' ]],
+  \   'right':[[ 'cocstatus' ],
+  \             [ 'currentfunction', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'percent' ]],
+  \  },
+  \ 'component_function': {
+  \   'gitbranch': 'Git',
+  \   'filetype': 'MyFiletype',
+  \   'fileformat': 'MyFileformat',
+  \   'filename': 'FilenameForLightline',
+  \   'charvaluehex': 'CharValueHex',
+  \   'cocstatus': 'coc#status'
+  \ },
+\}
+
+" Show full path of filename
+function! FilenameForLightline()
+  return expand('%')
+endfunction
+
+function! CharValueHex()
+  let charvaluehex = printf('%02x', char2nr(getline('.')[col('.')-1]))
+
+  return winwidth(0) > 70 ? charvaluehex : ''
+endfunction
+
+function! Git()
+  return gina#component#repo#name() .':' . gina#component#repo#branch()
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+" vim:ft=vim

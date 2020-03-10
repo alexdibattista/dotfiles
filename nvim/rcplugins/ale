@@ -1,0 +1,11 @@
+" " Ale - linting and fixing
+
+" Plug 'dense-analysis/ale'
+" Plug 'maximbaz/lightline-ale'
+
+
+" let g:ale_fixers = {
+"   \ 'ruby': ['rubocop']
+" \}
+
+" " vim:ft=vim

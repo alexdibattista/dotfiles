@@ -1,0 +1,4 @@
+" Gina - git plugin
+
+Plug 'lambdalisue/gina.vim'
+

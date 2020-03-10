@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/alexd/code/coverfinancial/gateway'
+let g:netrw_dirhist_3='/Users/alexd/code/coverfinancial/rating-engine'
+let g:netrw_dirhist_2='/Users/alexd/code/coverfinancial/policy-admin'
+let g:netrw_dirhist_1='/Users/alexd/.config/nvim'
+let g:netrw_dirhist_0='/Users/alexd/code/coverfinancial/policy-admin/components/underwriter'
+let g:netrw_dirhist_9='/Users/alexd/code/coverfinancial/policy-admin/components/underwriter/lib/underwriter'
+let g:netrw_dirhist_8='/Users/alexd/code/coverfinancial/policy-admin'
+let g:netrw_dirhist_7='/Users/alexd/code/coverfinancial'
+let g:netrw_dirhist_6='/Users/alexd/code/coverfinancial/policy-admin'
+let g:netrw_dirhist_5='/Users/alexd/code/coverfinancial/gateway'
