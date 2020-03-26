@@ -1,9 +1,4 @@
 {
-  "python.pythonPath":"/Users/alexd/.pyenv/shims/python",
-  "diagnostic.warningSign": "⚠",
-  "diagnostic.hintSign": ">>",
-  "diagnostic.infoSign": ">>",
-  "diagnostic.errorSign": "!!",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
@@ -15,11 +10,16 @@
     "typescriptreact",
     "ruby"
   ],
-  "tsserver.formatOnType": true,
   "coc.preferences.formatOnType": true,
+  "diagnostic.errorSign": "!!",
+  "diagnostic.hintSign": ">>",
+  "diagnostic.infoSign": ">>",
+  "diagnostic.warningSign": "⚠",
+  "python.pythonPath":"/Users/alexd/.pyenv/shims/python",
+  "solargraph.useBundler": true,
   "solargraph.completion": true,
-  "solargraph.commandPath": "/Users/alexd/.rbenv/shims/solargraph",
   "solargraph.diagnostics": true,
-  "solargraph.formatting": true
+  "solargraph.formatting": true,
+  "tsserver.formatOnType": true
 }
 
