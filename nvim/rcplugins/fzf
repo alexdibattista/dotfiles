@@ -14,8 +14,5 @@ nnoremap <leader>ga :Files app/<cr>
 nnoremap <leader>gm :Files app/models/<cr>
 nnoremap <leader>gv :Files app/views/<cr>
 nnoremap <leader>gc :Files app/controllers/<cr>
-nnoremap <leader>gy :Files app/assets/stylesheets/<cr>
-nnoremap <leader>gj :Files app/assets/javascripts/<cr>
-nnoremap <leader>gs :Files spec/<cr>
 
 " vim:ft=vim

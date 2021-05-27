@@ -1,4 +1,20 @@
 {
+  "coc.preferences.jumpCommand": "drop",
+  "coc.preferences.hoverTarget": "float",
+  "diagnostic.refreshOnInsertMode": true,
+  "suggest.floatEnable": false,
+  "suggest.noselect": false,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.enablePreview": false,
+  "suggest.enablePreselect": false,
+  "diagnostic.errorSign": "!!",
+  "diagnostic.warningSign": "!!",
+  "diagnostic.infoSign": "!!",
+  "diagnostic.hintSign": "!!",
+  "diagnostic.signOffset": 999999,
+  "diagnostic.maxWindowHeight": 20,
+  "signature.maxWindowHeight": 20,
+  "diagnostic.checkCurrentLine": true,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
@@ -7,19 +23,11 @@
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact",
-    "ruby"
+    "typescriptreact"
   ],
-  "coc.preferences.formatOnType": true,
-  "diagnostic.errorSign": "!!",
-  "diagnostic.hintSign": ">>",
-  "diagnostic.infoSign": ">>",
-  "diagnostic.warningSign": "⚠",
-  "python.pythonPath":"/Users/alexd/.pyenv/shims/python",
+  "prettier.requireConfig": true,
+  "tsserver.formatOnType": true,
   "solargraph.useBundler": true,
-  "solargraph.completion": true,
-  "solargraph.diagnostics": true,
-  "solargraph.formatting": true,
-  "tsserver.formatOnType": true
+  "solargraph.formatting": false,
+  "coc.preferences.formatOnType": true
 }
-

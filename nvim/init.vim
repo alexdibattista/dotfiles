@@ -3,7 +3,7 @@ let &packpath = &runtimepath
 set guicursor=
 autocmd OptionSet guicursor noautocmd set guicursor=
 set nocompatible
-
+filetype plugin indent on
 " Need to set the leader before defining any leader mappings
 let mapleader = ","
 

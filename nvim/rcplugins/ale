@@ -1,11 +1,16 @@
 " " Ale - linting and fixing
 
-" Plug 'dense-analysis/ale'
-" Plug 'maximbaz/lightline-ale'
+Plug 'dense-analysis/ale'
+Plug 'maximbaz/lightline-ale'
 
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+  \ 'ruby':   ['rubocop'],
+  \ 'python': ['black'],
+  \ 'json':   ['prettier']
+\}
 
-" let g:ale_fixers = {
-"   \ 'ruby': ['rubocop']
-" \}
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
 
 " " vim:ft=vim

@@ -1,12 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =7
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/Users/alexd/code/coverfinancial/rating-engine'
+let g:netrw_dirhist_0='/Users/alexd/code/coverfinancial/policy-admin'
+let g:netrw_dirhist_9='/Users/alexd/code/coverfinancial/rating-engine'
+let g:netrw_dirhist_8='/Users/alexd/.config'
 let g:netrw_dirhist_7='/Users/alexd/code/coverfinancial/rating-engine'
 let g:netrw_dirhist_6='/Users/alexd/code/coverfinancial/rating-engine/test'
 let g:netrw_dirhist_5='/Users/alexd/code/coverfinancial/rating-engine/test/system'
 let g:netrw_dirhist_4='/Users/alexd/code/coverfinancial/rating-engine/test'
 let g:netrw_dirhist_3='/Users/alexd/code/coverfinancial/rating-engine'
 let g:netrw_dirhist_2='/Users/alexd/code/coverfinancial/policy-admin'
-let g:netrw_dirhist_1='/Users/alexd/code/coverfinancial/gateway'
-let g:netrw_dirhist_0='/Users/alexd/code/coverfinancial/gateway/config'
-let g:netrw_dirhist_9='/Users/alexd/code/coverfinancial/gateway'
-let g:netrw_dirhist_8='/Users/alexd/code/coverfinancial/gateway/app/controllers'

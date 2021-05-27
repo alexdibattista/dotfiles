@@ -51,4 +51,5 @@ set hidden
 
 set mouse=a
 runtime macros/matchit.vim
+
 " vim:ft=vim
